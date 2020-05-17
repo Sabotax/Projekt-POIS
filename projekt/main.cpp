@@ -53,14 +53,14 @@ int main()
     grass.setPosition(0,0);
 
     sf::Texture texture_gey;
-    if(!texture_gey.loadFromFile("../textures/gey.png")) { return 1; }
+    if(!texture_gey.loadFromFile("../textures/proba3d-2-filled.png")) { return 1; }
 
     sf::Sprite gey;
     gey.setTexture(texture_gey);
     //guy.setTextureRect(sf::IntRect(10, 20, 20, 15)); //left, top, width, height
 
     gey.setPosition(100,100);
-
+    gey.setScale(10.0,10.0);
 
     sf::Texture texture_wall;
     if(!texture_wall.loadFromFile("../textures/wall.png")) { return 1; }
