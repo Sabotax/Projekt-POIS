@@ -8,7 +8,9 @@ namespace Boot {
 //        tekstury["grass"] = std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
 //        tekstury["wall"] = std::make_shared<sf::Texture>(LoadOneTexture("../textures/wall.png"));
 
-        tekstury.emplace("grass", std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
+        //tekstury.emplace("grass", std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
+
+        tekstury.emplace_back(LoadOneTexture("../textures/grass.png"));
     }
     sf::Texture LoadOneTexture(std::string path) {
         sf::Texture texture;
@@ -35,3 +37,21 @@ namespace Boot {
 //        return tekstury;
 //    }
 };
+
+std::vector< sf::Texture> LoadTextures() {
+    std::vector< sf::Texture> re;
+    re.emplace_back(LoadOneTexture("../textures/grass.png"));
+    re.emplace_back(LoadOneTexture("../textures/wall.png"));
+    SetRepeat(re);
+    return re;
+}
+sf::Texture LoadOneTexture(std::string path) {
+    sf::Texture texture;
+    if (!texture.loadFromFile(path)) {
+        std::cerr << "Could not load texture at " << path << std::endl;
+    }
+    return texture;
+}
+void SetRepeat(std::vector< sf::Texture>& tekstury) {
+    tekstury[0].setRepeated(true);
+}
