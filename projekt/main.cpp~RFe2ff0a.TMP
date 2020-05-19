@@ -48,12 +48,11 @@ int main()
     texture_grass.setRepeated(true);
     */
 
-    Boot::Boot();
-    //Boot::Boot(std::move(window));
-
+    //Boot::LoadTextures();
+    Boot::Boot(std::move(window));
 
     sf::Sprite grass;
-    grass.setTexture(Boot::tekstury["wall"]);
+    grass.setTexture(Boot::tekstury[0]);
     double skala = 0.3;
     grass.setScale(skala, skala);
     grass.setTextureRect(sf::IntRect(0, 0, window->getSize().x*1/skala, window->getSize().y*1/skala));
