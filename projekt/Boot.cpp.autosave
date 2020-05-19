@@ -8,10 +8,11 @@ namespace Boot {
 //        tekstury["grass"] = std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
 //        tekstury["wall"] = std::make_shared<sf::Texture>(LoadOneTexture("../textures/wall.png"));
 
-        tekstury.emplace("grass", std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
+        //tekstury.emplace("grass", std::make_shared<sf::Texture>(LoadOneTexture("../textures/grass.png"));
     }
     sf::Texture LoadOneTexture(std::string path) {
-        sf::Texture texture;
+        
+        std::unique_ptr<sf::Texture>() texture;
         if (!texture.loadFromFile(path)) {
             std::cerr << "Could not load texture at " << path << std::endl;
         }

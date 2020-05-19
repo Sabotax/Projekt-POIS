@@ -53,7 +53,8 @@ int main()
 
 
     sf::Sprite grass;
-    grass.setTexture(Boot::tekstury["wall"]);
+    grass.setTexture(Boot::tekstury.at("grass"));
+    //grass.setTexture(Boot::getTekstury()["grass"]);
     double skala = 0.3;
     grass.setScale(skala, skala);
     grass.setTextureRect(sf::IntRect(0, 0, window->getSize().x*1/skala, window->getSize().y*1/skala));
@@ -128,7 +129,7 @@ int main()
         sf::Time elapsed = clock.getElapsedTime();
         elapsed_S = elapsed.asSeconds();
         zliczanie += elapsed_S;
-        std::cout << bit-zliczanie << std::endl;
+        //std::cout << bit-zliczanie << std::endl;
 
         if( bit-zliczanie <= 0.5 && bit-zliczanie >= -0.5 ) { // nawiasy bitu
             if(sw) gey.setTexture(texture_guy);
