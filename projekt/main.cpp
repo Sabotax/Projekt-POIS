@@ -1,8 +1,4 @@
-#include <iostream>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <cmath>
+#include "Header.h"
 
 std::vector<std::unique_ptr<sf::Drawable>> create_shapes()
 {
@@ -30,33 +26,40 @@ std::vector<std::unique_ptr<sf::Drawable>> create_shapes()
 
     return shapes;
 }
-double my_abs(double x) {
-    if(x < 0) x *= -1;
-    return x;
-}
+
 
 int main()
 {
 
     // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-    window.setFramerateLimit(60);
+    //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+    //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
+    std::unique_ptr< sf::RenderWindow > window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "My window");
+    window->setFramerateLimit(60);
 
     std::vector<std::unique_ptr <sf::Drawable> > shapes = create_shapes();
 
+    /*
     sf::Texture texture_grass;
     if (!texture_grass.loadFromFile("../textures/grass.png")) {
         std::cerr << "Could not load texture" << std::endl;
         return 1;
     }
     texture_grass.setRepeated(true);
+    */
+
+    //Boot::LoadTextures();
+    Boot::Boot(std::move(window));
 
     sf::Sprite grass;
-    grass.setTexture(texture_grass);
+    grass.setTexture(Boot::tekstury[0]);
     double skala = 0.3;
     grass.setScale(skala, skala);
-    grass.setTextureRect(sf::IntRect(0, 0, window.getSize().x*1/skala, window.getSize().y*1/skala));
+    grass.setTextureRect(sf::IntRect(0, 0, window->getSize().x*1/skala, window->getSize().y*1/skala));
     grass.setPosition(0,0);
+
+
+
 
     sf::Texture texture_gey;
     if(!texture_gey.loadFromFile("../textures/proba3d-2-filled.png")) { return 1; }
@@ -88,13 +91,13 @@ int main()
     sf::Clock clock;
 
     // run the program as long as the window is open
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window->pollEvent(event)) {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
-                window.close();
+                window->close();
         }
 
         //control panel
@@ -112,10 +115,10 @@ int main()
         }
 
         // clear the window with black color
-        window.clear(sf::Color::Black);
+        window->clear(sf::Color::Black);
 
         // draw everything here...
-        for(const auto &x: shapes) window.draw(*x);
+        for(const auto &x: shapes) window->draw(*x);
 
 
 
@@ -133,13 +136,13 @@ int main()
             zliczanie = 0;
         }
 
-        window.draw(grass);
-        window.draw(gey);
+        window->draw(grass);
+        window->draw(gey);
 
 
         clock.restart();
         // end the current frame
-        window.display();
+        window->display();
     }
 
     return 0;

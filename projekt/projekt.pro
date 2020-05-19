@@ -4,6 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        Boot.cpp \
+        Helper.cpp \
+        Tile.cpp \
         main.cpp
 
 INCLUDEPATH += "D:/SFML-2.5.1/include"
@@ -15,3 +18,6 @@ CONFIG(debug, debug|release){
 } else {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
+
+HEADERS += \
+    Header.h
