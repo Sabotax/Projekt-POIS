@@ -51,11 +51,13 @@ int main()
     //Boot::Boot();
     //Boot::Boot(std::move(window));
 
-    std::vector< sf::Texture > tekstury = LoadTextures();
+    //std::vector< sf::Texture > tekstury = LoadTextures();
+    std::map<std::string, sf::Texture> tekstury = LoadTexturesMap();
+
 
     sf::Sprite grass;
-    grass.setTexture(tekstury[0]);
-    //grass.setTexture(Boot::getTekstury()["grass"]);
+    grass.setTexture(tekstury["grass"]);
+    //grass.setTexture(Boot::getMapa()["grass"]);
     double skala = 0.3;
     grass.setScale(skala, skala);
     grass.setTextureRect(sf::IntRect(0, 0, window->getSize().x*1/skala, window->getSize().y*1/skala));
