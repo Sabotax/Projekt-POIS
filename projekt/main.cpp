@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <cmath>
 
 std::vector<std::unique_ptr<sf::Drawable>> create_shapes()
 {
@@ -29,12 +30,17 @@ std::vector<std::unique_ptr<sf::Drawable>> create_shapes()
 
     return shapes;
 }
+double my_abs(double x) {
+    if(x < 0) x *= -1;
+    return x;
+}
 
 int main()
 {
 
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+    window.setFramerateLimit(60);
 
     std::vector<std::unique_ptr <sf::Drawable> > shapes = create_shapes();
 
@@ -55,12 +61,14 @@ int main()
     sf::Texture texture_gey;
     if(!texture_gey.loadFromFile("../textures/proba3d-2-filled.png")) { return 1; }
 
+    sf::Texture texture_guy;
+    if(!texture_guy.loadFromFile("../textures/proba3d-1.png")) { return 1; }
+
     sf::Sprite gey;
     gey.setTexture(texture_gey);
     //guy.setTextureRect(sf::IntRect(10, 20, 20, 15)); //left, top, width, height
 
     gey.setPosition(100,100);
-    gey.setScale(10.0,10.0);
 
     sf::Texture texture_wall;
     if(!texture_wall.loadFromFile("../textures/wall.png")) { return 1; }
@@ -72,6 +80,12 @@ int main()
     wall.setTextureRect(sf::IntRect(0, 0, 500, 500));
     wall.setPosition(0,0);
 
+    double bit = 5.0; // co 5 sekund tura
+    double zliczanie = 0;
+    double elapsed_S = 0;
+    bool sw = true; // switch
+
+    sf::Clock clock;
 
     // run the program as long as the window is open
     while (window.isOpen()) {
@@ -103,11 +117,27 @@ int main()
         // draw everything here...
         for(const auto &x: shapes) window.draw(*x);
 
+
+
+        // timer test
+
+        sf::Time elapsed = clock.getElapsedTime();
+        elapsed_S = elapsed.asSeconds();
+        zliczanie += elapsed_S;
+        std::cout << bit-zliczanie << std::endl;
+
+        if( bit-zliczanie <= 0.5 && bit-zliczanie >= -0.5 ) { // nawiasy bitu
+            if(sw) gey.setTexture(texture_guy);
+            else gey.setTexture(texture_gey);
+            sw = !sw;
+            zliczanie = 0;
+        }
+
         window.draw(grass);
         window.draw(gey);
 
 
-
+        clock.restart();
         // end the current frame
         window.display();
     }
