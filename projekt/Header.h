@@ -10,7 +10,9 @@
 class Tile;
 sf::Texture LoadOneTexture(std::string path);
 
-std::map< std::string,sf::Texture> LoadTexturesMap();
-void SetRepeatMap(std::map<std::string, sf::Texture>& tekstury);
+std::map< std::string,sf::Texture> LoadTextures();
+void SetRepeat(std::map<std::string, sf::Texture>& tekstury);
+sf::Sprite InitiateMapWall(const sf::Texture& wall_texture, sf::Vector2u wymiary);
+sf::Sprite InitiateHero(const sf::Texture& hero_texture, sf::Vector2u wymiary);
 
 #endif // HEADER_H
