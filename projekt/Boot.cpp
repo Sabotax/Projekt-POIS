@@ -33,3 +33,32 @@ sf::Sprite InitiateHero(const sf::Texture& hero_texture, sf::Vector2u wymiary) {
     hero.setPosition(wymiary.x / 2,wymiary.y / 2);
     return hero;
 }
+//std::vector< std::vector < std::unique_ptr<sf::Sprite> > > GenerateTilesVector(sf::Texture& temp_tex,sf::Vector2u wymiary) {
+std::vector< std::vector < std::shared_ptr<sf::Sprite >> > GenerateTilesVector(const sf::Texture& temp_tex,sf::Vector2u wymiary) {
+    int poswiecone_na_przerwy = 3;
+    int ilosc_x = wymiary.x / 50 - poswiecone_na_przerwy;
+    int ilosc_y = wymiary.y / 50 - poswiecone_na_przerwy + 1;
+
+    std::vector< std::vector < std::shared_ptr<sf::Sprite >> > re;
+    for(int i = 0; i < ilosc_y ; i++) {
+        std::vector < std::shared_ptr<sf::Sprite >> temp_vec;
+
+        for(int j = 0; j < ilosc_x; j++) {
+            //std::unique_ptr<sf::Sprite> temp = std::make_unique<sf::Sprite>();
+            std::shared_ptr<sf::Sprite> temp = std::make_shared<sf::Sprite>();
+            // funkcja od set textures co drugie ma byc osobno
+            // temporary tu jest ustawianie skina
+            temp->setTexture(temp_tex);
+            //temp->setPosition(i*50+10*i,0);
+            // aka
+            temp->setPosition(j*61+10,i*60+5);
+            temp->setScale(0.2,0.2); //tekstura ma 250, tile ma mieć 50
+            //temp->setPosition()
+            temp_vec.emplace_back(temp);
+            std::cout << "tu mnie wyjebuje" << std::endl;
+        }
+        re.emplace_back(temp_vec);
+    }
+    std::cout << re.size() << "\t" << re[0].size() << std::endl;
+    return re;
+}

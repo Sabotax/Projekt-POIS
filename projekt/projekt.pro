@@ -5,7 +5,10 @@ CONFIG -= qt
 
 SOURCES += \
         Boot.cpp \
+        Character.cpp \
+        Enemy.cpp \
         Helper.cpp \
+        Hero.cpp \
         Tile.cpp \
         main.cpp
 

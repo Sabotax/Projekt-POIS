@@ -19,6 +19,9 @@ int main()
     sprites.emplace("wall",InitiateMapWall(tekstury["wall"],window->getSize()));
     sprites.emplace("hero1",InitiateHero(tekstury["hero1"],window->getSize()));
 
+    //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
+    std::vector< std::vector < std::shared_ptr<sf::Sprite >> > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
+
     double bit = 5.0; // co 5 sekund tura
     double zliczanie = 0;
     double elapsed_S = 0;
@@ -70,9 +73,14 @@ int main()
 //        }
 
         //reverse dla kolejności odpowiedniej
-        for (std::reverse_iterator<std::map<std::string,sf::Sprite>::iterator> it=sprites.rbegin(); it!=sprites.rend(); it++) {
-            window->draw(it->second);
-        }
+//        for (std::reverse_iterator<std::map<std::string,sf::Sprite>::iterator> it=sprites.rbegin(); it!=sprites.rend(); it++) {
+//            window->draw(it->second);
+//        }
+//        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
+d
+        window->draw(sprites["wall"]);
+        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
+        window->draw(sprites["hero1"]);
 
         clock.restart();
         // end the current frame
