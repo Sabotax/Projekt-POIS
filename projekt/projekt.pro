@@ -23,4 +23,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
-    Header.h
+    Character.h \
+    Header.h \
+    Hero.h \
+    Tile.h

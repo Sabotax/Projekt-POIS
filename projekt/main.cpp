@@ -15,12 +15,18 @@ int main()
 
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
-    std::map<std::string, sf::Sprite> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
+    std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
     sprites.emplace("wall",InitiateMapWall(tekstury["wall"],window->getSize()));
-    sprites.emplace("hero1",InitiateHero(tekstury["hero1"],window->getSize()));
-
+    //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
+    std::vector< std::vector < std::shared_ptr<Tile>> > tiles = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], tiles[6][5] );
+    std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
-    std::vector< std::vector < std::shared_ptr<sf::Sprite >> > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
+
+    //sf::Sprite hero_test;
+    //hero_test.setTexture(tekstury["hero1"]);
+
+    //tiles[5][5]->setTexture(tekstury["red"]);
 
     double bit = 5.0; // co 5 sekund tura
     double zliczanie = 0;
@@ -28,6 +34,8 @@ int main()
     bool sw = true; // switch
 
     sf::Clock clock;
+
+    //std::cout << Hero1->test << std::endl;
 
     // run the program as long as the window is open
     while (window->isOpen()) {
@@ -41,16 +49,17 @@ int main()
 
         //control panel
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            sprites["hero1"].move(0,-1);
+            Hero1->sprite->move(0,-1);
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            sprites["hero1"].move(0,1);
+            //Hero1->sprite->move(0,1);
+            Hero1->sprite->move(0,1);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            sprites["hero1"].move(-1,0);
+            Hero1->sprite->move(-1,0);
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            sprites["hero1"].move(1,0);
+            Hero1->sprite->move(1,0);
         }
 
         // clear the window with black color
@@ -77,10 +86,11 @@ int main()
 //            window->draw(it->second);
 //        }
 //        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
-d
-        window->draw(sprites["wall"]);
-        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
-        window->draw(sprites["hero1"]);
+
+        window->draw(*sprites["wall"]);
+        for(auto& x : tiles) for(auto& y : x) window->draw(*y->sprite);
+        window->draw(*Hero1->sprite);
+        //window->draw(hero_test);
 
         clock.restart();
         // end the current frame
