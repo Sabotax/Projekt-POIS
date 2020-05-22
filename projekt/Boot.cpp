@@ -37,4 +37,8 @@ std::shared_ptr<sf::Sprite> InitiateMapWall(const sf::Texture& wall_texture, sf:
     wall->setPosition(0,0);
     return wall;
 }
+void start_dumb_cpp_static_variables() {
+    Character::czas_animacji;
+    //std::vector< std::vector < std::shared_ptr< Tile >> > Tile::tiles_tab;
+}
 

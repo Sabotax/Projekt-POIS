@@ -9,16 +9,14 @@
 #include <map>
 #include <memory>
 //klasy
-class Tile;
 sf::Texture LoadOneTexture(std::string path);
-
 std::map< std::string,sf::Texture> LoadTextures();
 void SetRepeat(std::map<std::string, sf::Texture>& tekstury);
 std::shared_ptr<sf::Sprite> InitiateMapWall(const sf::Texture& wall_texture, sf::Vector2u wymiary);
+void start_dumb_cpp_static_variables();
 
 #include "Tile.h"
 #include "Character.h"
 #include "Hero.h"
-
 
 #endif // HEADER_H

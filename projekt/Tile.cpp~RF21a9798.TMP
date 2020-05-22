@@ -1,8 +1,6 @@
 #include "Header.h"
 
-std::vector< std::vector < std::shared_ptr< Tile >> > Tile::tiles_tab;
-
-void Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) {
+std::vector< std::vector < std::shared_ptr<Tile >> > Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) {
     int poswiecone_na_przerwy = 3;
     int ilosc_x = wymiary.x / 50 - poswiecone_na_przerwy;
     int ilosc_y = wymiary.y / 50 - poswiecone_na_przerwy + 1;
@@ -31,9 +29,11 @@ void Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) 
         re.emplace_back(temp_vec);
     }
     std::cout << re.size() << "\t" << re[0].size() << std::endl;
-    Tile::tiles_tab = re;
-    //return re;
+    return re;
 }
+//void Tile::setTexture(sf::Texture texture) {
+//    sprite->setTexture(texture);
+//}
 Tile::Tile(int x, int y, const sf::Texture& texture)  {
     sprite = std::make_shared<sf::Sprite>();
     polozenie.x = x;
@@ -41,3 +41,7 @@ Tile::Tile(int x, int y, const sf::Texture& texture)  {
     sprite->setPosition(polozenie.x,polozenie.y);
     sprite->setTexture(texture);
 }
+//std::shared_ptr< Tile > Tile::getTileAt(int x, int y) {
+//    return return_from_this();
+//}
+// TODO przepisać tamto by działało na obiektach tile, tj vector<sprite>, vector<tile>, Tile ma pole z sprite

@@ -1,8 +1,11 @@
 #include "Header.h"
+#include "Tile.h"
+#include "Character.h"
+#include "Hero.h"
 
 int main()
 {
-
+    void start_dumb_cpp_static_variables();
     // create the window
     //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
@@ -18,8 +21,9 @@ int main()
     std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
     sprites.emplace("wall",InitiateMapWall(tekstury["wall"],window->getSize()));
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
-    std::vector< std::vector < std::shared_ptr<Tile>> > tiles = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], tiles[6][5] );
+    //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
+    Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[6][5] );
     std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
 
@@ -34,6 +38,9 @@ int main()
     bool sw = true; // switch
 
     sf::Clock clock;
+
+    //temp tutaj
+    Character::czas_animacji = 1;
 
     //std::cout << Hero1->test << std::endl;
 
@@ -56,7 +63,8 @@ int main()
             Hero1->sprite->move(0,1);
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            Hero1->sprite->move(-1,0);
+            //Hero1->sprite->move(-1,0);
+            Hero1->start_move();
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             Hero1->sprite->move(1,0);
@@ -87,8 +95,11 @@ int main()
 //        }
 //        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
 
+        Hero1->move("left",elapsed_S);
+        // dir dać do startmove i moze pole w charcter opisujace dir
+
         window->draw(*sprites["wall"]);
-        for(auto& x : tiles) for(auto& y : x) window->draw(*y->sprite);
+        for(auto& x : Tile::tiles_tab) for(auto& y : x) window->draw(*y->sprite);
         window->draw(*Hero1->sprite);
         //window->draw(hero_test);
 
