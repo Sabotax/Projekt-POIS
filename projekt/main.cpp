@@ -6,6 +6,8 @@
 int main()
 {
     void start_dumb_cpp_static_variables();
+    Tile::initialize_statics();
+    Character::initialize_statics();
     // create the window
     //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
@@ -14,7 +16,7 @@ int main()
 
     std::map<std::string, sf::Texture> tekstury = LoadTextures();
 
-    std::cout << window->getSize().x << " \t" << window->getSize().y << std::endl;
+    //std::cout << window->getSize().x << " \t" << window->getSize().y << std::endl;
 
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
@@ -23,8 +25,8 @@ int main()
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[6][5] );
-    std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["debug1"], Tile::tiles_tab[6][5] );
+    //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
 
     //sf::Sprite hero_test;
@@ -40,7 +42,7 @@ int main()
     sf::Clock clock;
 
     //temp tutaj
-    Character::czas_animacji = 1;
+    //Character::czas_animacji = 1;
 
     //std::cout << Hero1->test << std::endl;
 
@@ -56,18 +58,18 @@ int main()
 
         //control panel
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            Hero1->sprite->move(0,-1);
+            Hero1->Character::start_move("up");
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             //Hero1->sprite->move(0,1);
-            Hero1->sprite->move(0,1);
+            Hero1->Character::start_move("down");
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             //Hero1->sprite->move(-1,0);
-            Hero1->start_move();
+            Hero1->Character::start_move("left");
         }
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            Hero1->sprite->move(1,0);
+            Hero1->Character::start_move("right");
         }
 
         // clear the window with black color
@@ -95,7 +97,7 @@ int main()
 //        }
 //        for(auto& x : tiles) for(auto& y : x) window->draw(*y);
 
-        Hero1->move("left",elapsed_S);
+        Hero1->move();
         // dir dać do startmove i moze pole w charcter opisujace dir
 
         window->draw(*sprites["wall"]);

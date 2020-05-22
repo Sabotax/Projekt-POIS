@@ -13,6 +13,7 @@ std::map< std::string,sf::Texture> LoadTextures() {
     re.emplace("hero1",LoadOneTexture("../textures/proba3d-2-filled.png"));
     re.emplace("wall",LoadOneTexture("../textures/wall.png"));
     re.emplace("red",LoadOneTexture("../textures/red.png"));
+    re.emplace("debug1",LoadOneTexture("../textures/debug_tex.png"));
     SetRepeat(re);
     return re;
 }
@@ -36,9 +37,5 @@ std::shared_ptr<sf::Sprite> InitiateMapWall(const sf::Texture& wall_texture, sf:
     wall->setTextureRect(sf::IntRect(0, 0, wymiary.x/skala, wymiary.y/skala));
     wall->setPosition(0,0);
     return wall;
-}
-void start_dumb_cpp_static_variables() {
-    Character::czas_animacji;
-    //std::vector< std::vector < std::shared_ptr< Tile >> > Tile::tiles_tab;
 }
 
