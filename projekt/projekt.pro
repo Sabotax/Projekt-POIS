@@ -9,7 +9,9 @@ SOURCES += \
         Enemy.cpp \
         Helper.cpp \
         Hero.cpp \
+        Music.cpp \
         Tile.cpp \
+        Timer.cpp \
         main.cpp
 
 INCLUDEPATH += "D:/SFML-2.5.1/include"
@@ -26,4 +28,6 @@ HEADERS += \
     Character.h \
     Header.h \
     Hero.h \
-    Tile.h
+    Music.h \
+    Tile.h \
+    Timer.h

@@ -16,6 +16,15 @@ std::map< std::string,sf::Texture> LoadTextures() {
     SetRepeat(re);
     return re;
 }
+std::map< std::string,sf::Texture> LoadSounds() {
+    std::map<std::string, sf::Texture> re;
+    re.emplace("grass",LoadOneTexture("../textures/grass.png"));
+    re.emplace("hero1",LoadOneTexture("../textures/proba3d-2-filled.png"));
+    re.emplace("wall",LoadOneTexture("../textures/wall.png"));
+    re.emplace("red",LoadOneTexture("../textures/red.png"));
+    SetRepeat(re);
+    return re;
+}
 void SetRepeat(std::map<std::string, sf::Texture>& tekstury) {
     tekstury["wall"].setRepeated(true);
 }
