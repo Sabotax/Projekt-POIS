@@ -12,12 +12,14 @@
 sf::Texture LoadOneTexture(std::string path);
 std::map< std::string,sf::Texture> LoadTextures();
 void SetRepeat(std::map<std::string, sf::Texture>& tekstury);
-std::shared_ptr<sf::Sprite> InitiateMapWall(const sf::Texture& wall_texture, sf::Vector2u wymiary);
+std::shared_ptr<sf::Sprite> InitiateBackground(const sf::Texture& wall_texture,const sf::Vector2u& wymiary);
 void start_dumb_cpp_static_variables();
 void debug(std::string id, std::string opis);
 void debug(std::string id, int opis);
 void debug(std::string id, double opis);
 void debug(std::string id);
+std::vector< std::shared_ptr < sf::Sprite> > InitiateWalls(const sf::Texture& texture);
+std::shared_ptr< sf::Sprite > InitiateBanner(const sf::Texture& texture,const sf::Vector2u& wymiary);
 
 #include "Tile.h"
 #include "Character.h"

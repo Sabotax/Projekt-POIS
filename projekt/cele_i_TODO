@@ -1,0 +1,9 @@
+1. zwiększyć mapę przez zwiększenie rozdzielczości + dorobić banner u góry z (na przyszłość) życie, fala, broń, ammo
+dodatkowo niepasujące brzegi zamienić tak by były pasujące i zrobić "ściany"
+
+2. TIMER i połączenie z eventami (lub ich brakiem
+(można wrzucić coś tymczasowo migającego w banner oznaczającego zakresy właściwego czasu (rytmu) )
+
+
+rozdzielczosć: 1270 na pole i przerwy, 36 /2 na brzegi, 60 na banner
+768: 730 na pole i przerwy ( jedna przerwa + [ (50+10) * ilosc + 10) , 38/2 na brzegi

@@ -11,7 +11,7 @@ public:
     //static double czas_animacji;
     bool czy_w_trakcie_animacji;
     double frame_counter = 0;
-    static sf::Vector2i frame_counter_max;
+    static int frame_counter_max;
     static double animation_speed;
     std::string direction;
     //sf::Vector2i przewidywane_polozenie_na_koniec_animacji;

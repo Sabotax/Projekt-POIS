@@ -11,7 +11,7 @@ int main()
     // create the window
     //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
-    std::unique_ptr< sf::RenderWindow > window = std::make_unique<sf::RenderWindow>(sf::VideoMode(1366, 768), "My window");
+    std::unique_ptr< sf::RenderWindow > window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "My window");
     window->setFramerateLimit(60);
 
     std::map<std::string, sf::Texture> tekstury = LoadTextures();
@@ -21,9 +21,7 @@ int main()
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
     std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
-    sprites.emplace("wall",InitiateBackground(tekstury["wall"],window->getSize()));
-    //sprites.emplace("banner",InitiateBanner(tekstury["banner"],window->getSize()));
-    //sprites.emplace("sciany", InitiateWalls(tekstury["brown"]));
+    sprites.emplace("wall",InitiateMapWall(tekstury["wall"],window->getSize()));
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
@@ -31,8 +29,6 @@ int main()
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
 
-    std::vector< std::shared_ptr < sf::Sprite> > sciany = InitiateWalls(tekstury["brown"]);
-    std::shared_ptr<sf::Sprite> banner = InitiateBanner(tekstury["banner"],window->getSize());
     //sf::Sprite hero_test;
     //hero_test.setTexture(tekstury["hero1"]);
 
@@ -105,8 +101,6 @@ int main()
         // dir dać do startmove i moze pole w charcter opisujace dir
 
         window->draw(*sprites["wall"]);
-        window->draw(*banner);
-        for(auto& x : sciany ) window->draw(*x);
         for(auto& x : Tile::tiles_tab) for(auto& y : x) window->draw(*y->sprite);
         window->draw(*Hero1->sprite);
         //window->draw(hero_test);

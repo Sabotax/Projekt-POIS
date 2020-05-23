@@ -31,3 +31,6 @@ HEADERS += \
     Music.h \
     Tile.h \
     Timer.h
+
+DISTFILES += \
+    cele_i_TODO

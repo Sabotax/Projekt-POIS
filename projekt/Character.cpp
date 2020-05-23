@@ -1,7 +1,7 @@
 #include "Header.h"
 
 //double Character::czas_animacji;
-sf::Vector2i Character::frame_counter_max;
+int Character::frame_counter_max;
 double Character::animation_speed;
 //c++ to największe gówno ze wszystkich, 30 min na szukanie fixów na takie coś
 
@@ -10,43 +10,43 @@ void Character::move() {
     //nice teraz wzorem to zrobić by move skakało o ileś pixeli w połączeniu z elapsed
     if(czy_w_trakcie_animacji) {
         if(direction == "up") {
-            if(frame_counter <= Character::frame_counter_max.x/2) {
+            if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25,-animation_speed);
                 // cos w stylu TODO
                 // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
-            else if (frame_counter >= Character::frame_counter_max.x/2) {
+            else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25,-animation_speed);
             }
         }
         else if(direction == "down") {
-            if(frame_counter <= Character::frame_counter_max.x/2) {
+            if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25,animation_speed);
                 // cos w stylu TODO
                 // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
-            else if (frame_counter >= Character::frame_counter_max.x/2) {
+            else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25,animation_speed);
             }
         }
         else if(direction == "left") {
-            if(frame_counter <= Character::frame_counter_max.x/2.0) {
+            if(frame_counter <= Character::frame_counter_max/2.0) {
                 sprite->move(-animation_speed,-0.5);
                 // cos w stylu TODO
                 // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
-            else if (frame_counter >= Character::frame_counter_max.x/2.0) {
+            else if (frame_counter >= Character::frame_counter_max/2.0) {
                 sprite->move(-animation_speed,0.5);
             }
 
         }
         else if(direction == "right") {
-            if(frame_counter <= Character::frame_counter_max.x/2) {
+            if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(animation_speed,-0.5);
                 // cos w stylu TODO
                 // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
-            else if (frame_counter >= Character::frame_counter_max.x/2) {
+            else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(animation_speed,0.5);
             }
         }
@@ -64,7 +64,7 @@ void Character::move() {
 //        moment_animacji = 0;
 //    }
     // ustawic czy .x w poziom i .y w pion
-    if(frame_counter >= Character::frame_counter_max.x) {
+    if(frame_counter >= Character::frame_counter_max) {
         //debug("wchodze tu");
         czy_w_trakcie_animacji = false;
         frame_counter = 0;
@@ -99,9 +99,8 @@ Character::Character() {
     czy_w_trakcie_animacji = false;
 }
 void Character::initialize_statics() {
-    frame_counter_max.x = Tile::tile_px_width + Tile::break_px_width.x;
+    frame_counter_max = Tile::tile_px_width + Tile::break_px_width;
     //debug("frame_counter_max.x",frame_counter_max.x);
-    frame_counter_max.y = Tile::tile_px_width + Tile::break_px_width.y;
     //debug("frame_counter_max.y",frame_counter_max.y);
     animation_speed = 3.27; //dzieki fixowi kazde double moze byc
 }
