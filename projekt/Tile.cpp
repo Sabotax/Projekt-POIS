@@ -1,6 +1,8 @@
 #include "Header.h"
 
 std::vector< std::vector < std::shared_ptr< Tile >> > Tile::tiles_tab;
+std::vector<   std::shared_ptr< Tile > > Tile::tiles_miganie_1_tab;
+std::vector<  std::shared_ptr< Tile > > Tile::tiles_miganie_2_tab;
 int Tile::tile_px_width;
 int Tile::break_px_width;
 int Tile::ilosc_x;
@@ -12,6 +14,7 @@ int Tile::zarezerwowane_z_lewej;
 void Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) {
 
     std::vector< std::vector < std::shared_ptr<Tile >> > re;
+    bool mig = true;
     for(int i = 0; i < ilosc_x ; i++) {
         std::vector < std::shared_ptr<Tile >> temp_vec;
 
@@ -29,7 +32,17 @@ void Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) 
             temp_obiekt->sprite->setScale(0.2,0.2); //tekstura ma 250, tile ma mieć 50
             //temp->setPosition()
 
+            // dodawanie do tablic migania
             temp_vec.emplace_back(temp_obiekt);
+
+
+            if(mig) {
+                Tile::tiles_miganie_1_tab.emplace_back(temp_obiekt);
+            }
+            else {
+                Tile::tiles_miganie_2_tab.emplace_back(temp_obiekt);
+            }
+            mig = !mig;
             //std::cout << "tu mnie wyjebuje" << std::endl;
         }
         re.emplace_back(temp_vec);
@@ -55,4 +68,13 @@ void Tile::initialize_statics() {
     zarezerwowane_z_gory = 60;
     zarezerwowane_z_gory_na_sciane = 16;
     zarezerwowane_z_lewej = 18;
+}
+void migaj_szachownica(std::shared_ptr<sf::Texture> texture_1 , std::shared_ptr<sf::Texture> texture_2) {
+    for( std::shared_ptr<Tile> x : Tile::tiles_miganie_1_tab) {
+        x->sprite->setTexture(*texture_1);
+    }
+    for( std::shared_ptr<Tile> x : Tile::tiles_miganie_2_tab) {
+        x->sprite->setTexture(*texture_2);
+    }
+
 }

@@ -10,6 +10,8 @@ public:
     static int tile_px_width;
     static int break_px_width;
     static std::vector< std::vector < std::shared_ptr< Tile >> > tiles_tab;
+    static std::vector<   std::shared_ptr< Tile > > tiles_miganie_1_tab;
+    static std::vector<   std::shared_ptr< Tile > > tiles_miganie_2_tab;
     //std::shared_ptr< Tile > koordy_w_pamieci;
     //static std::vector< std::vector < std::shared_ptr<sf::Sprite >> > GenerateTilesVector(const sf::Texture& temp_tex,sf::Vector2u wymiary);
     static void GenerateTilesVector(const sf::Texture& temp_tex,sf::Vector2u wymiary);
@@ -22,6 +24,7 @@ public:
     static int zarezerwowane_z_gory;
     static int zarezerwowane_z_gory_na_sciane;
     static int zarezerwowane_z_lewej;
+    void migaj_szachownica(std::shared_ptr<sf::Texture> texture_1 , std::shared_ptr<sf::Texture> texture_2);
 };
 
 #endif // TILE_H

@@ -53,7 +53,7 @@ void Character::move() {
 
 
         frame_counter += animation_speed;
-        //debug("check fps counter", frame_counter);
+        debug("check fps counter", frame_counter);
     }
 
 

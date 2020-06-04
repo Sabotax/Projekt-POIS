@@ -19,15 +19,19 @@ std::map< std::string,sf::Texture> LoadTextures() {
     SetRepeat(re);
     return re;
 }
-std::map< std::string,sf::Texture> LoadSounds() {
-    std::map<std::string, sf::Texture> re;
-    re.emplace("grass",LoadOneTexture("../textures/grass.png"));
-    re.emplace("hero1",LoadOneTexture("../textures/proba3d-2-filled.png"));
-    re.emplace("wall",LoadOneTexture("../textures/wall.png"));
-    re.emplace("red",LoadOneTexture("../textures/red.png"));
-    SetRepeat(re);
+sf::SoundBuffer LoadOneSoundBuffer(std::string path) {
+    sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile(path)) {
+        std::cerr << "Could not load soundbuffer at " << path << std::endl;
+    }
+    return buffer;
+}
+std::map< std::string,sf::SoundBuffer> LoadSounds() {
+    std::map<std::string, sf::SoundBuffer> re;
+    //re.emplace("papers_please",LoadOneSoundBuffer("../audio/papers_please/papers_please.ogg")); Music::wektory_inicjalizacja_nazwa.push_back("papers_please");
     return re;
 }
+
 void SetRepeat(std::map<std::string, sf::Texture>& tekstury) {
     tekstury["wall"].setRepeated(true);
     tekstury["brown"].setRepeated(true);

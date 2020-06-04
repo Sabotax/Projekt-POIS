@@ -1,13 +1,11 @@
 #include "Header.h"
-#include "Tile.h"
-#include "Character.h"
-#include "Hero.h"
 
 int main()
 {
     void start_dumb_cpp_static_variables();
     Tile::initialize_statics();
     Character::initialize_statics();
+    Timer::Initiate_statics();
     // create the window
     //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
@@ -15,9 +13,10 @@ int main()
     window->setFramerateLimit(60);
 
     std::map<std::string, sf::Texture> tekstury = LoadTextures();
+    std::map<std::string, sf::SoundBuffer> sound_buffers = LoadSounds();
 
     //std::cout << window->getSize().x << " \t" << window->getSize().y << std::endl;
-
+    Music::InitiateMusics();
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
     std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
@@ -43,11 +42,15 @@ int main()
     double elapsed_S = 0;
     bool sw = true; // switch
 
+    //sf::Music papers_test;
+    //papers_test.openFromFile("../audio/papers_please/papers_please.ogg");
+    //papers_test.play();
+
     sf::Clock clock;
 
     //temp tutaj
     //Character::czas_animacji = 1;
-
+    Music::muzyki_tab[0]->soundtrack->play();
     //std::cout << Hero1->test << std::endl;
 
     // run the program as long as the window is open
@@ -110,7 +113,10 @@ int main()
         for(auto& x : Tile::tiles_tab) for(auto& y : x) window->draw(*y->sprite);
         window->draw(*Hero1->sprite);
         //window->draw(hero_test);
-
+//        if(trig_once_testowo) {
+//            Music::muzyki_tab[0]->soundtrack->play();
+//            trig_once_testowo = false;
+//        }
         clock.restart();
         // end the current frame
         window->display();

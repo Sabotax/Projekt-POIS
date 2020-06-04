@@ -20,9 +20,14 @@ void debug(std::string id, double opis);
 void debug(std::string id);
 std::vector< std::shared_ptr < sf::Sprite> > InitiateWalls(const sf::Texture& texture);
 std::shared_ptr< sf::Sprite > InitiateBanner(const sf::Texture& texture,const sf::Vector2u& wymiary);
+sf::SoundBuffer LoadOneSoundBuffer(std::string path);
+std::map< std::string,sf::SoundBuffer> LoadSounds();
 
 #include "Tile.h"
 #include "Character.h"
 #include "Hero.h"
+#include "Baner.h"
+#include "Music.h"
+#include "Timer.h"
 
 #endif // HEADER_H
