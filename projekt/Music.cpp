@@ -2,6 +2,7 @@
 
 std::vector< std::shared_ptr<Music> > Music::muzyki_tab;
 std::vector< std::string>  Music::wektory_inicjalizacja_nazwa;
+std::shared_ptr<Music> Music::obecna_muzyka;
 
 Music::Music(std::shared_ptr<sf::Music> soundtrack, std::string nazwa, std::vector<double> okienka_czasowe, std::vector<sf::Vector2f> pauzy)
 {

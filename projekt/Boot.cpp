@@ -16,6 +16,8 @@ std::map< std::string,sf::Texture> LoadTextures() {
     re.emplace("debug1",LoadOneTexture("../textures/debug_tex.png"));
     re.emplace("brown",LoadOneTexture("../textures/brown.png"));
     re.emplace("banner",LoadOneTexture("../textures/bannersmall.png"));
+    re.emplace("blue",LoadOneTexture("../textures/blue.png"));
+    re.emplace("gray",LoadOneTexture("../textures/gray.png"));
     SetRepeat(re);
     return re;
 }

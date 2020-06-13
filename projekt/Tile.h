@@ -24,7 +24,13 @@ public:
     static int zarezerwowane_z_gory;
     static int zarezerwowane_z_gory_na_sciane;
     static int zarezerwowane_z_lewej;
-    void migaj_szachownica(std::shared_ptr<sf::Texture> texture_1 , std::shared_ptr<sf::Texture> texture_2);
+    static void migaj_szachownica(bool t);
+    static void GenerateTilesVector(const sf::Texture& texture_one, const sf::Texture& texture_two ,sf::Vector2u wymiary);
+    static sf::Texture tex1;
+    static sf::Texture tex2;
+    static void ustaw_statyczne_tex( sf::Texture tex1, sf::Texture tex2);
+    static int szerokosc_okna;
+    static int wysokosc_okna;
 };
 
 #endif // TILE_H

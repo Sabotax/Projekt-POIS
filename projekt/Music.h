@@ -14,6 +14,8 @@ public:
     static void InitiateMusics();
     static std::vector< std::shared_ptr<Music> > muzyki_tab;
     static std::vector< std::string>  wektory_inicjalizacja_nazwa;
+    static std::shared_ptr<Music> obecna_muzyka;
+    int obecny_index=0;
 };
 
 #endif // MUSIC_H

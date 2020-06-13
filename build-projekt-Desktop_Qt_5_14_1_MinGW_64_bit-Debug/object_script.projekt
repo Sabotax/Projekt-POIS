@@ -7,4 +7,5 @@ Hero.o
 Music.o
 Tile.o
 Timer.o
+baner_odliczanie.o
 main.o

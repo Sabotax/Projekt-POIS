@@ -13,6 +13,7 @@ SOURCES += \
         Music.cpp \
         Tile.cpp \
         Timer.cpp \
+        baner_odliczanie.cpp \
         main.cpp
 
 INCLUDEPATH += "D:/SFML-2.5.1/include"
@@ -32,7 +33,8 @@ HEADERS += \
     Hero.h \
     Music.h \
     Tile.h \
-    Timer.h
+    Timer.h \
+    baner_odliczanie.h
 
 DISTFILES += \
     cele_i_TODO

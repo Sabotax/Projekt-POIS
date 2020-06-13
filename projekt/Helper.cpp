@@ -12,3 +12,8 @@ void debug(std::string id, std::string opis) {
 void debug(std::string id) {
     std::cout << "ID: " << id << std::endl;
 }
+int randomInt(int min, int max) {
+    static std::default_random_engine e{};
+    std::uniform_int_distribution<int> d{min, max};
+    return d(e);
+}
