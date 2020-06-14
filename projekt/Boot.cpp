@@ -10,10 +10,10 @@ sf::Texture LoadOneTexture(std::string path) {
 std::map< std::string,sf::Texture> LoadTextures() {
     std::map<std::string, sf::Texture> re;
     re.emplace("grass",LoadOneTexture("../textures/grass.png"));
-    re.emplace("hero1",LoadOneTexture("../textures/proba3d-2-filled.png"));
+    re.emplace("hero1",LoadOneTexture("../textures/proba3d-1.png"));
     re.emplace("wall",LoadOneTexture("../textures/wall.png"));
     re.emplace("red",LoadOneTexture("../textures/red.png"));
-    re.emplace("debug1",LoadOneTexture("../textures/debug_tex.png"));
+    //re.emplace("debug1",LoadOneTexture("../textures/debug_tex.png"));
     re.emplace("brown",LoadOneTexture("../textures/brown.png"));
     re.emplace("banner",LoadOneTexture("../textures/bannersmall.png"));
     re.emplace("blue",LoadOneTexture("../textures/blue.png"));

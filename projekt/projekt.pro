@@ -7,13 +7,13 @@ SOURCES += \
         Baner.cpp \
         Boot.cpp \
         Character.cpp \
-        Enemy.cpp \
         Helper.cpp \
         Hero.cpp \
         Music.cpp \
         Tile.cpp \
         Timer.cpp \
         baner_odliczanie.cpp \
+        enemy.cpp \
         main.cpp \
         pocisk.cpp \
         serca.cpp
@@ -37,6 +37,7 @@ HEADERS += \
     Tile.h \
     Timer.h \
     baner_odliczanie.h \
+    enemy.h \
     pocisk.h \
     serca.h
 

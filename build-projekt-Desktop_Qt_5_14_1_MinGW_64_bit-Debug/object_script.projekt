@@ -1,13 +1,13 @@
 Baner.o
 Boot.o
 Character.o
-Enemy.o
 Helper.o
 Hero.o
 Music.o
 Tile.o
 Timer.o
 baner_odliczanie.o
+enemy.o
 main.o
 pocisk.o
 serca.o

@@ -12,6 +12,7 @@ Music::Music(std::shared_ptr<sf::Music> soundtrack, std::string nazwa, std::vect
     this->pauzy = pauzy;
 }
 void Music::InitiateMusics() {
+    // TODO posprawdzać DOKŁADNIE timingi na audacity
 
     std::vector< std::string>  wektory_inicjalizacja_nazwa;
     std::vector< std::string>  wektory_inicjalizacja_sciezka;
@@ -24,9 +25,12 @@ void Music::InitiateMusics() {
     double suma = 0;
     double czas_trwania = 104;
     double bit = 1;
+    double wciecie_poczatkowe = 0.5;
+    suma = wciecie_poczatkowe;
     for(int i = 0; suma < czas_trwania; i++) {
-        suma += bit;
+
         temp_okienka_czasowe.emplace_back(suma);
+        suma += bit;
     }
     std::vector<sf::Vector2f> temp_pauzy;
 
@@ -44,5 +48,4 @@ void Music::InitiateMusics() {
         std::shared_ptr<Music> obiekt = std::make_shared<Music>(temp_music,wektory_inicjalizacja_nazwa[i], temp_okienka_czasowe, temp_pauzy);
         Music::muzyki_tab.emplace_back(obiekt);
     }
-    // TODO zrobić użytek z okienek czasowych i połączyć z timerem
 }

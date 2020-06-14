@@ -33,5 +33,6 @@ int randomInt(int min, int max);
 #include "baner_odliczanie.h"
 #include "serca.h"
 #include "pocisk.h"
+#include "enemy.h"
 
 #endif // HEADER_H

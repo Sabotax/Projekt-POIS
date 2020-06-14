@@ -5,6 +5,7 @@ int Character::frame_counter_max;
 double Character::animation_speed;
 //c++ to największe gówno ze wszystkich, 30 min na szukanie fixów na takie coś
 
+//TODO blokada move jeśli jest na krawędzi szachownicy
 void Character::move() {
     //double animation_speed = 3.27; //animation ? chyba speed
     //nice teraz wzorem to zrobić by move skakało o ileś pixeli w połączeniu z elapsed
@@ -12,8 +13,6 @@ void Character::move() {
         if(direction == "up") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25,-Character::animation_speed);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25,-Character::animation_speed);
@@ -22,8 +21,6 @@ void Character::move() {
         else if(direction == "down") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25,Character::animation_speed);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25,Character::animation_speed);
@@ -32,8 +29,6 @@ void Character::move() {
         else if(direction == "left") {
             if(frame_counter <= Character::frame_counter_max/2.0) {
                 sprite->move(-Character::animation_speed,-0.5);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2.0) {
                 sprite->move(-Character::animation_speed,0.5);
@@ -43,8 +38,6 @@ void Character::move() {
         else if(direction == "right") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(Character::animation_speed,-0.5);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(Character::animation_speed,0.5);
@@ -95,8 +88,6 @@ void Character::move(double elapsed) {
         if(direction == "up") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25*elapsed,-Character::animation_speed*elapsed);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25*elapsed,-Character::animation_speed*elapsed);
@@ -105,8 +96,6 @@ void Character::move(double elapsed) {
         else if(direction == "down") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(0.25*elapsed,Character::animation_speed*elapsed);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(0.25*elapsed,Character::animation_speed*elapsed);
@@ -115,7 +104,6 @@ void Character::move(double elapsed) {
         else if(direction == "left") {
             if(frame_counter <= Character::frame_counter_max/2.0) {
                 sprite->move(-Character::animation_speed*elapsed,-0.5*elapsed);
-                // cos w stylu TODO
                 // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2.0) {
@@ -126,8 +114,6 @@ void Character::move(double elapsed) {
         else if(direction == "right") {
             if(frame_counter <= Character::frame_counter_max/2) {
                 sprite->move(Character::animation_speed*elapsed,-0.5*elapsed);
-                // cos w stylu TODO
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
             }
             else if (frame_counter >= Character::frame_counter_max/2) {
                 sprite->move(Character::animation_speed*elapsed,0.5*elapsed);

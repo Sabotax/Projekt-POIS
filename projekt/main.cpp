@@ -27,7 +27,7 @@ int main()
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["red"], tekstury["blue"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["debug1"], Tile::tiles_tab[6][5] );
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[6][5] );
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
 
@@ -137,6 +137,7 @@ int main()
         Hero1->move();
         baner_odliczanie::ob->animate(elapsed_S);
         for(auto& x: pocisk::pociski) x->animuj(elapsed_S);
+        pocisk::zarzadzaj_pociskami();
         // dir dać do startmove i moze pole w charcter opisujace dir
 
         window->draw(*sprites["wall"]);
