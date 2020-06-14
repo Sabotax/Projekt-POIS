@@ -16,8 +16,10 @@ public:
     std::string direction;
     //sf::Vector2i przewidywane_polozenie_na_koniec_animacji;
     void move();
+    void move(double elapsed);
     void start_move(const std::string& direction);
     Character();
     static void initialize_statics();
+    bool czy_ruszyl_w_tej_turze = false;
 };
 #endif // CHARACTER_H

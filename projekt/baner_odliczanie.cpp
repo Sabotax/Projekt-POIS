@@ -5,7 +5,7 @@ std::shared_ptr<baner_odliczanie> baner_odliczanie::ob;
 baner_odliczanie::baner_odliczanie(double val1, double val2)
 {
     //val 1 i 2 to czasy w wektorze okienek czasowych
-    debug("Tyczka: ", "nowy obiekt tworze");
+    //debug("Tyczka: ", "nowy obiekt tworze");
     tyczka = std::make_shared<sf::RectangleShape>(sf::Vector2f(5,Tile::zarezerwowane_z_gory-20));
     wyznaczSpeed(val1,val2);
     tyczka->setPosition(Tile::szerokosc_okna - 150,0 + 10);

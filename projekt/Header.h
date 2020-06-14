@@ -31,5 +31,7 @@ int randomInt(int min, int max);
 #include "Music.h"
 #include "Timer.h"
 #include "baner_odliczanie.h"
+#include "serca.h"
+#include "pocisk.h"
 
 #endif // HEADER_H

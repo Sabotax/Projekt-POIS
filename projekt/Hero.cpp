@@ -12,4 +12,7 @@ Hero::Hero(const sf::Texture& texture, std::shared_ptr<Tile> tile) {
     sprite->setPosition(polozenie_tile->polozenie.x, polozenie_tile->polozenie.y);
     czy_w_trakcie_animacji = false;
 }
+void Hero::strzel(std::string zwrot) {
+    pocisk::pociski.emplace_back( std::make_shared<pocisk>(zwrot, polozenie_tile) );
+}
 //TODO przepisać na konstruktor i pola (position to pole Tile)

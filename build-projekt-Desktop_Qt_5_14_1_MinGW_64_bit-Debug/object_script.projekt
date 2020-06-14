@@ -9,3 +9,5 @@ Tile.o
 Timer.o
 baner_odliczanie.o
 main.o
+pocisk.o
+serca.o

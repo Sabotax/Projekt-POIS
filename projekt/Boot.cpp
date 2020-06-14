@@ -18,6 +18,8 @@ std::map< std::string,sf::Texture> LoadTextures() {
     re.emplace("banner",LoadOneTexture("../textures/bannersmall.png"));
     re.emplace("blue",LoadOneTexture("../textures/blue.png"));
     re.emplace("gray",LoadOneTexture("../textures/gray.png"));
+    re.emplace("serce_pelne",LoadOneTexture("../textures/serce_pelne.png"));
+    re.emplace("serce_puste",LoadOneTexture("../textures/serce_puste.png"));
     SetRepeat(re);
     return re;
 }

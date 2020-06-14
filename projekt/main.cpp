@@ -34,15 +34,16 @@ int main()
     std::vector< std::shared_ptr < sf::Sprite> > sciany = InitiateWalls(tekstury["brown"]);
     std::shared_ptr<sf::Sprite> banner = InitiateBanner(tekstury["banner"],window->getSize());
     std::vector< std::shared_ptr < sf::RectangleShape> > baner_odliczanie_trasa = baner_odliczanie::create_position_rectangles();
+    serca::utworz_serca(tekstury["serce_pelne"]);
     //sf::Sprite hero_test;
     //hero_test.setTexture(tekstury["hero1"]);
 
     //tiles[5][5]->setTexture(tekstury["red"]);
 
-    double bit = 5.0; // co 5 sekund tura
-    double zliczanie = 0;
+    //double bit = 5.0; // co 5 sekund tura
+    //double zliczanie = 0;
     double elapsed_S = 0;
-    bool sw = true; // switch
+    //bool sw = true; // switch
 
     //sf::Music papers_test;
     //papers_test.openFromFile("../audio/papers_please/papers_please.ogg");
@@ -64,23 +65,44 @@ int main()
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window->close();
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                Hero1->Character::start_move("up");
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                //Hero1->sprite->move(0,1);
+                Hero1->Character::start_move("down");
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                //Hero1->sprite->move(-1,0);
+                Hero1->Character::start_move("left");
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                Hero1->Character::start_move("right");
+            }
+
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::H) {
+                    serca::strac_zycie(tekstury["serce_puste"]);
+                }
+                if (event.key.code == sf::Keyboard::Left) {
+                    Hero1->strzel("lewo");
+                }
+                if (event.key.code == sf::Keyboard::Right) {
+                    Hero1->strzel("prawo");
+                }
+                if (event.key.code == sf::Keyboard::Up) {
+                    Hero1->strzel("gora");
+                }
+                if (event.key.code == sf::Keyboard::Down) {
+                    Hero1->strzel("dol");
+                }
+            }
+
         }
 
         //control panel
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            Hero1->Character::start_move("up");
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            //Hero1->sprite->move(0,1);
-            Hero1->Character::start_move("down");
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            //Hero1->sprite->move(-1,0);
-            Hero1->Character::start_move("left");
-        }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            Hero1->Character::start_move("right");
-        }
+
 
         // clear the window with black color
         window->clear(sf::Color::Black);
@@ -114,6 +136,7 @@ int main()
 
         Hero1->move();
         baner_odliczanie::ob->animate(elapsed_S);
+        for(auto& x: pocisk::pociski) x->animuj(elapsed_S);
         // dir dać do startmove i moze pole w charcter opisujace dir
 
         window->draw(*sprites["wall"]);
@@ -129,6 +152,10 @@ int main()
 
         for(auto& x : baner_odliczanie_trasa) window->draw(*x);
         window->draw(*(baner_odliczanie::ob->tyczka));
+
+        for(auto& x : serca::serca_tab) window->draw(*x->sprite);
+
+        for(auto& x : pocisk::pociski)  window->draw(*x->sprite);
 
         clock.restart();
         // end the current frame
