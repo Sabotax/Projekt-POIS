@@ -7,41 +7,77 @@ double Character::animation_speed;
 
 //TODO blokada move jeśli jest na krawędzi szachownicy
 void Character::move() {
+    // TODO pozmieniac cala funkcje by bylo temporary polozenie tile przechowujace i liczace/robiace move na podstawe starego, tymczasem obiekt posiada juz w polowie animacji polozenie tile
+    // z updateowane
     //double animation_speed = 3.27; //animation ? chyba speed
     //nice teraz wzorem to zrobić by move skakało o ileś pixeli w połączeniu z elapsed
     if(czy_w_trakcie_animacji) {
+        //bool nie_wyjdzie_poza = true;
         if(direction == "up") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(0.25,-Character::animation_speed);
+            if(!(polozenie_tile->polozenie_w_vector.y > 0)) {
+                //nie_wyjdzie_poza = false;
+                polozenie_tile->czy_zajete = false;
+                return;
             }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(0.25,-Character::animation_speed);
-            }
-        }
-        else if(direction == "down") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(0.25,Character::animation_speed);
-            }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(0.25,Character::animation_speed);
-            }
-        }
-        else if(direction == "left") {
-            if(frame_counter <= Character::frame_counter_max/2.0) {
-                sprite->move(-Character::animation_speed,-0.5);
-            }
-            else if (frame_counter >= Character::frame_counter_max/2.0) {
-                sprite->move(-Character::animation_speed,0.5);
+            else {
+                if(frame_counter <= Character::frame_counter_max/2) {
+                    sprite->move(0.25,-Character::animation_speed);
+                }
+                else if (frame_counter >= Character::frame_counter_max/2) {
+                    sprite->move(0.25,-Character::animation_speed);
+                }
+
             }
 
         }
-        else if(direction == "right") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(Character::animation_speed,-0.5);
+        else if(direction == "down"  ) {
+            if(!(polozenie_tile->polozenie_w_vector.y < Tile::ilosc_y-1)) {
+                //nie_wyjdzie_poza = false;
+                polozenie_tile->czy_zajete = false;
+                return;
             }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(Character::animation_speed,0.5);
+            else {
+                if(frame_counter <= Character::frame_counter_max/2) {
+                    sprite->move(0.25,Character::animation_speed);
+                }
+                else if (frame_counter >= Character::frame_counter_max/2) {
+                    sprite->move(0.25,Character::animation_speed);
+                }
             }
+
+        }
+        else if(direction == "left"  ) {
+            if(!(polozenie_tile->polozenie_w_vector.x > 0)) {
+                //nie_wyjdzie_poza = false;
+                polozenie_tile->czy_zajete = false;
+                return;
+            }
+            else {
+                if(frame_counter <= Character::frame_counter_max/2.0) {
+                    sprite->move(-Character::animation_speed,-0.5);
+                }
+                else if (frame_counter >= Character::frame_counter_max/2.0) {
+                    sprite->move(-Character::animation_speed,0.5);
+                }
+            }
+
+
+        }
+        else if(direction == "right"  ) {
+            if(!(polozenie_tile->polozenie_w_vector.x < Tile::ilosc_x-1)) {
+                //nie_wyjdzie_poza = false;
+                polozenie_tile->czy_zajete = false;
+                return;
+            }
+            else {
+                if(frame_counter <= Character::frame_counter_max/2) {
+                    sprite->move(Character::animation_speed,-0.5);
+                }
+                else if (frame_counter >= Character::frame_counter_max/2) {
+                    sprite->move(Character::animation_speed,0.5);
+                }
+            }
+
         }
 
 
@@ -78,6 +114,7 @@ void Character::move() {
             polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y];
         }
 
+        polozenie_tile->czy_zajete = true;
         sprite->setPosition(polozenie_tile->polozenie.x,polozenie_tile->polozenie.y);
     }
 }

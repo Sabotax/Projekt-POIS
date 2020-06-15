@@ -31,6 +31,7 @@ public:
     static void ustaw_statyczne_tex( sf::Texture tex1, sf::Texture tex2);
     static int szerokosc_okna;
     static int wysokosc_okna;
+    bool czy_zajete = false;
 };
 
 #endif // TILE_H

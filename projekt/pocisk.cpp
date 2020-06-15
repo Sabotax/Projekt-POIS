@@ -196,7 +196,10 @@ void pocisk::zarzadzaj_pociskami() {
 //        }
 
         // TODO punkt 2 czyli polecenie po wszystkich enemy i porownanie ktory jest na tile na ktorym aktualnie jest ten pocisk (albo na odwrot) i wtedy kasacja obu
-
+        bool czy_trafiono = enemy::zniszcz_enemy_na_tile_od_pocisk(it->operator*().obecny_tile);
+        if(czy_trafiono) {
+            do_skasowania.emplace_back(it);
+        }
         // punkt 3
         if(it->operator*().czy_przekroczyl_ostatni_tile() ) {
             do_skasowania.emplace_back(it);

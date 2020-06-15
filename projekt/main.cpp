@@ -27,9 +27,11 @@ int main()
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["red"], tekstury["blue"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[6][5] );
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[10][5] );
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
+    //std::shared_ptr< enemy> enemy1 = std::make_shared<enemy>(tekstury["robot"], Tile::tiles_tab[10][1] );
+    enemy::make_enemies(tekstury["robot"]);
 
     std::vector< std::shared_ptr < sf::Sprite> > sciany = InitiateWalls(tekstury["brown"]);
     std::shared_ptr<sf::Sprite> banner = InitiateBanner(tekstury["banner"],window->getSize());
@@ -145,6 +147,7 @@ int main()
         for(auto& x : sciany ) window->draw(*x);
         for(auto& x : Tile::tiles_tab) for(auto& y : x) window->draw(*y->sprite);
         window->draw(*Hero1->sprite);
+        for(auto& x: enemy::tab_enemies) window->draw(*x->sprite);
         //window->draw(hero_test);
 //        if(trig_once_testowo) {
 //            Music::muzyki_tab[0]->soundtrack->play();

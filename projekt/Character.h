@@ -5,7 +5,7 @@
 class Character {
 public:
     std::shared_ptr< Tile > polozenie_tile;
-    std::string test;
+    //std::string test;
     std::shared_ptr< sf::Sprite > sprite;
     //double moment_animacji;
     //static double czas_animacji;

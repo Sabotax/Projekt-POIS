@@ -20,6 +20,7 @@ std::map< std::string,sf::Texture> LoadTextures() {
     re.emplace("gray",LoadOneTexture("../textures/gray.png"));
     re.emplace("serce_pelne",LoadOneTexture("../textures/serce_pelne.png"));
     re.emplace("serce_puste",LoadOneTexture("../textures/serce_puste.png"));
+    re.emplace("robot",LoadOneTexture("../textures/robot.png"));
     SetRepeat(re);
     return re;
 }
