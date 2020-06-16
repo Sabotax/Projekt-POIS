@@ -4,6 +4,8 @@
 // DONE lmit strzalu raz na ture (odrobine inna tura niz ta dotyczaca ruchu)
 // MOZE TODO zielone pola oznaczajace mozliwe nawiasy, aczkolwiek niezbyt potrzebne
 // TODO odrkyc unexptected blad ze na poczatku gry jak sie zrobi np dwa-trzy razy w prawo to nastepnie w lewo tez robi w prawo
+// TODO zrobić zeby character mialo pole planowany tile, i zeby dzialaj/move robotów raczej sprawdzało je niż obecny tile, a może oba
+// TODO sprawdzic czy sprawdzanie zalezy od tile::zajete, czy sprawdza każde character::polozenie_tile == planowany_tile
 int main()
 {
     void start_dumb_cpp_static_variables();
@@ -24,6 +26,7 @@ int main()
     Music::InitiateMusics();
     Tile::ustaw_statyczne_tex(tekstury["blue"],tekstury["red"]);
     serca::ustaw_statyczne_tex( tekstury["serce_puste"],tekstury["serce_pelne"]);
+    enemy::ustaw_statyczne_tex( tekstury["robot"]);
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
     std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
@@ -33,13 +36,12 @@ int main()
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["red"], tekstury["blue"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[10][5] );
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[10][1] );
     Hero::hero1 = Hero1;
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
     //std::shared_ptr< enemy> enemy1 = std::make_shared<enemy>(tekstury["robot"], Tile::tiles_tab[10][1] );
-    enemy::make_enemies(tekstury["robot"]);
-
+    enemy::spawn_enemies();
     std::vector< std::shared_ptr < sf::Sprite> > sciany = InitiateWalls(tekstury["brown"]);
     std::shared_ptr<sf::Sprite> banner = InitiateBanner(tekstury["banner"],window->getSize());
     std::vector< std::shared_ptr < sf::RectangleShape> > baner_odliczanie_trasa = baner_odliczanie::create_position_rectangles();
@@ -164,6 +166,7 @@ int main()
 
 
         Hero1->move();
+        for(auto& x: enemy::tab_enemies) x->move();
         baner_odliczanie::ob->animate(elapsed_S);
         for(auto& x: pocisk::pociski) x->animuj(elapsed_S);
         pocisk::zarzadzaj_pociskami();

@@ -17,7 +17,7 @@ public:
     //sf::Vector2i przewidywane_polozenie_na_koniec_animacji;
     void move();
     void move(double elapsed);
-    void start_move(const std::string& direction);
+    void start_move(std::string direction);
     Character();
     static void initialize_statics();
     bool czy_ruszyl_w_tej_turze = false;

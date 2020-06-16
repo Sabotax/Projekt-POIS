@@ -28,9 +28,19 @@ void Timer::zarzadzaj_czasem(double elapsed) {
         //debug("Timer test", ("zliczanie: " + std::to_string(  zliczanie  ) ) ) ;
         //debug("Timer test", ("obecny index: " , obecna_muzyka->obecny_index ) ) ;
         //debug("Hero czy ruzsyl", Hero::hero1->czy_ruszyl_w_tej_turze);
+        for(auto& x : enemy::tab_enemies) {
+            x->dzialaj();
+            x->czy_ruszyl_w_tej_turze=false;
+        }
 
         baner_odliczanie::ob = std::make_shared<baner_odliczanie>(obecna_muzyka->okienka_czasowe[obecna_muzyka->obecny_index],obecna_muzyka->okienka_czasowe[obecna_muzyka->obecny_index+1]);
+
+        if(obecna_muzyka->obecny_index % 15 == 0) {
+            enemy::spawn_enemies();
+        }
     }
+    //TODO moze, a moze nie zrobic cos jak sie skonczy, piosenka, + dodac piosenke robot rock (pasuje tematycznie), moze zrobic ze jak papers sie skoncza to przelacza
+    // obecna muzyka itp robi
 
 //    if( czy_wpadlo_w_nawiasy_bitu(obecna_muzyka, zliczanie ) ) {
 //        //debug("Czy wpadlo test", ("zliczanie: " , zliczanie   ) ) ;
@@ -80,10 +90,11 @@ void Timer::zarzadzaj_czasem(double elapsed) {
 
     }
 
-    if(baner_odliczanie::ob->check_for_destroy() ) {
+//    if(baner_odliczanie::ob->check_for_destroy() ) {
 
 
-    }
+//    }
+    // nie trzeba bo się robi nowy wiec gitara
 }
 void Timer::Initiate_statics() {
     zliczanie = 0;

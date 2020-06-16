@@ -198,11 +198,13 @@ void Character::move(double elapsed) {
         sprite->setPosition(polozenie_tile->polozenie.x,polozenie_tile->polozenie.y);
     }
 }
-void Character::start_move(const std::string& direction) {
+void Character::start_move(std::string direction) {
+    //debug("move direction = ", direction);
     czy_w_trakcie_animacji = true;
     if(!czy_ruszyl_w_tej_turze) {
         if( !Timer::czy_wpadlo_w_nawiasy_bitu(Music::obecna_muzyka,Timer::zliczanie)) {
             debug("nie w rytm");
+            // TODO czy to trzeba robic hero only, skoro roboty zawsze beda wpadac w timer?
             serca::strac_zycie();
         }
         this->direction = direction;
