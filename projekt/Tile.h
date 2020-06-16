@@ -32,6 +32,7 @@ public:
     static int szerokosc_okna;
     static int wysokosc_okna;
     bool czy_zajete = false;
+    static std::shared_ptr< sf::RenderWindow > window;
 };
 
 #endif // TILE_H

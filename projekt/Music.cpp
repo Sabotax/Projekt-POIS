@@ -26,7 +26,7 @@ void Music::InitiateMusics() {
     double czas_trwania = 104;
     double bit = 1;
     double wciecie_poczatkowe = 0.5;
-    suma = wciecie_poczatkowe;
+    //suma = wciecie_poczatkowe;
     for(int i = 0; suma < czas_trwania; i++) {
 
         temp_okienka_czasowe.emplace_back(suma);

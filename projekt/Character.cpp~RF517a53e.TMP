@@ -5,18 +5,14 @@ int Character::frame_counter_max;
 double Character::animation_speed;
 //c++ to największe gówno ze wszystkich, 30 min na szukanie fixów na takie coś
 
-//DONE blokada move jeśli jest na krawędzi szachownicy
+//TODO blokada move jeśli jest na krawędzi szachownicy
 void Character::move() {
-
     // TODO pozmieniac cala funkcje by bylo temporary polozenie tile przechowujace i liczace/robiace move na podstawe starego, tymczasem obiekt posiada juz w polowie animacji polozenie tile
     // z updateowane
     //double animation_speed = 3.27; //animation ? chyba speed
     //nice teraz wzorem to zrobić by move skakało o ileś pixeli w połączeniu z elapsed
     if(czy_w_trakcie_animacji) {
         //bool nie_wyjdzie_poza = true;
-        //debug("Ustawiam na true");
-        //czy_ruszyl_w_tej_turze = true;
-
         if(direction == "up") {
             if(!(polozenie_tile->polozenie_w_vector.y > 0)) {
                 //nie_wyjdzie_poza = false;
@@ -200,16 +196,7 @@ void Character::move(double elapsed) {
 }
 void Character::start_move(const std::string& direction) {
     czy_w_trakcie_animacji = true;
-    if(!czy_ruszyl_w_tej_turze) {
-        if( !Timer::czy_wpadlo_w_nawiasy_bitu(Music::obecna_muzyka,Timer::zliczanie)) {
-            debug("nie w rytm");
-            serca::strac_zycie();
-        }
-        this->direction = direction;
-    }
-
-
-    czy_ruszyl_w_tej_turze = true;
+    this->direction = direction;
     // tu w zaleznosci od left right up down
     //przewidywane_polozenie_na_koniec_animacji.x = polozenie_tile->polozenie.x - Tile::tile_px_width - Tile::break_px_width.x;
     //przewidywane_polozenie_na_koniec_animacji.y = polozenie_tile->polozenie.y;

@@ -33,7 +33,7 @@ pocisk::pocisk(std::string zwrot, std::shared_ptr<Tile> startowy_tile)
         size = sf::Vector2i(wymiar_krotszy,wymiar_dluzszy);
     }
 
-    sprite->setFillColor(sf::Color(0,0,0));
+    sprite->setFillColor(sf::Color(225,223,0));
     wyznacz_liste_potencjalnie_przebytych_tileow();
 
 }
@@ -53,9 +53,9 @@ void pocisk::animuj(double elapsed) {
 
     update_pozycji();
 
-    // TODO check for kill enemy (prawdopodobnie w enemy, ale moze i nie
-    // TODO check for out of window -> destruktuje, (destruktuje nie tutaj tylko na zewnatrz prawdopodobnie
-    // TODO byc moze beda potrzebne pola obecny tile pocisku itp, zeby poprawnie zabijac wrogow
+    // DONE check for kill enemy (prawdopodobnie w enemy, ale moze i nie
+    // DONE check for out of window -> destruktuje, (destruktuje nie tutaj tylko na zewnatrz prawdopodobnie
+    // DNE byc moze beda potrzebne pola obecny tile pocisku itp, zeby poprawnie zabijac wrogow
     // TODO oczywiscie w hero razem obok blokady ruchu w turze, będą musiały być blokady strzałów
 }
 void pocisk::update_pozycji() {

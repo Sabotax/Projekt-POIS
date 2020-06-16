@@ -1,5 +1,9 @@
 #include "Header.h"
-
+// OMEGATODO pathfinding i skakanie do bohatera co ture i atakowanie bohatera jesli jest obok
+// DONE wymaganie żeby w okienku się ruszyć
+// DONE lmit strzalu raz na ture (odrobine inna tura niz ta dotyczaca ruchu)
+// MOZE TODO zielone pola oznaczajace mozliwe nawiasy, aczkolwiek niezbyt potrzebne
+// TODO odrkyc unexptected blad ze na poczatku gry jak sie zrobi np dwa-trzy razy w prawo to nastepnie w lewo tez robi w prawo
 int main()
 {
     void start_dumb_cpp_static_variables();
@@ -9,8 +13,9 @@ int main()
     // create the window
     //sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
     //std::unique_ptr<sf::CircleShape> circle = std::make_unique<sf::CircleShape>(100.0);
-    std::unique_ptr< sf::RenderWindow > window = std::make_unique<sf::RenderWindow>(sf::VideoMode(Tile::szerokosc_okna, Tile::wysokosc_okna), "My window");
+    std::shared_ptr< sf::RenderWindow > window = std::make_shared<sf::RenderWindow>(sf::VideoMode(Tile::szerokosc_okna, Tile::wysokosc_okna), "My window");
     window->setFramerateLimit(60);
+    Tile::window = window;
 
     std::map<std::string, sf::Texture> tekstury = LoadTextures();
     std::map<std::string, sf::SoundBuffer> sound_buffers = LoadSounds();
@@ -18,6 +23,7 @@ int main()
     //std::cout << window->getSize().x << " \t" << window->getSize().y << std::endl;
     Music::InitiateMusics();
     Tile::ustaw_statyczne_tex(tekstury["blue"],tekstury["red"]);
+    serca::ustaw_statyczne_tex( tekstury["serce_puste"],tekstury["serce_pelne"]);
 
     // na dole mur, który będzie rozdzielał drobnie tilesy
     std::map<std::string, std::shared_ptr<sf::Sprite>> sprites; // kolejnosc w vectorze bedzie oznaczala kolejnosc rysowania
@@ -28,6 +34,7 @@ int main()
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["red"], tekstury["blue"],window->getSize());
     std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[10][5] );
+    Hero::hero1 = Hero1;
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
     //std::shared_ptr< enemy> enemy1 = std::make_shared<enemy>(tekstury["robot"], Tile::tiles_tab[10][1] );
@@ -36,7 +43,7 @@ int main()
     std::vector< std::shared_ptr < sf::Sprite> > sciany = InitiateWalls(tekstury["brown"]);
     std::shared_ptr<sf::Sprite> banner = InitiateBanner(tekstury["banner"],window->getSize());
     std::vector< std::shared_ptr < sf::RectangleShape> > baner_odliczanie_trasa = baner_odliczanie::create_position_rectangles();
-    serca::utworz_serca(tekstury["serce_pelne"]);
+    serca::utworz_serca();
     //sf::Sprite hero_test;
     //hero_test.setTexture(tekstury["hero1"]);
 
@@ -55,12 +62,19 @@ int main()
 
     //temp tutaj
     //Character::czas_animacji = 1;
-    Music::muzyki_tab[0]->soundtrack->play();
     Music::obecna_muzyka = Music::muzyki_tab[0];
+    double chyba_sie_juz_zaladowalo_wszystko = 0.5;
+    bool i_raz_jeno = true;
+    //Music::muzyki_tab[0]->soundtrack->play();
+
     //std::cout << Hero1->test << std::endl;
     // run the program as long as the window is open
     baner_odliczanie::ob = std::make_shared<baner_odliczanie>(Music::obecna_muzyka->okienka_czasowe[Music::obecna_muzyka->obecny_index],Music::obecna_muzyka->okienka_czasowe[Music::obecna_muzyka->obecny_index+1]);
     while (window->isOpen()) {
+        if(Timer::zliczanie > chyba_sie_juz_zaladowalo_wszystko && i_raz_jeno) {
+            Music::obecna_muzyka->soundtrack->play();
+            i_raz_jeno = false;
+        }
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window->pollEvent(event)) {
@@ -68,24 +82,24 @@ int main()
             if (event.type == sf::Event::Closed)
                 window->close();
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-                Hero1->Character::start_move("up");
-            }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-                //Hero1->sprite->move(0,1);
-                Hero1->Character::start_move("down");
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-                //Hero1->sprite->move(-1,0);
-                Hero1->Character::start_move("left");
-            }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-                Hero1->Character::start_move("right");
-            }
+//            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+//                Hero1->Character::start_move("up");
+//            }
+//            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+//                //Hero1->sprite->move(0,1);
+//                Hero1->Character::start_move("down");
+//            }
+//            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+//                //Hero1->sprite->move(-1,0);
+//                Hero1->Character::start_move("left");
+//            }
+//            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+//                Hero1->Character::start_move("right");
+//            }
 
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::H) {
-                    serca::strac_zycie(tekstury["serce_puste"]);
+                    serca::strac_zycie();
                 }
                 if (event.key.code == sf::Keyboard::Left) {
                     Hero1->strzel("lewo");
@@ -98,6 +112,19 @@ int main()
                 }
                 if (event.key.code == sf::Keyboard::Down) {
                     Hero1->strzel("dol");
+                }
+
+                if(event.key.code == sf::Keyboard::W) {
+                    Hero1->Character::start_move("up");
+                }
+                else if(event.key.code == sf::Keyboard::S) {
+                    Hero1->Character::start_move("down");
+                }
+                else if(event.key.code == sf::Keyboard::A) {
+                    Hero1->Character::start_move("left");
+                }
+                else if(event.key.code == sf::Keyboard::D) {
+                    Hero1->Character::start_move("right");
                 }
             }
 

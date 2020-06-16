@@ -14,6 +14,7 @@ sf::Texture Tile::tex1;
 sf::Texture Tile::tex2;
 int Tile::szerokosc_okna;
 int Tile::wysokosc_okna;
+std::shared_ptr< sf::RenderWindow > Tile::window;
 
 void Tile::GenerateTilesVector(const sf::Texture& texture,sf::Vector2u wymiary) {
 
