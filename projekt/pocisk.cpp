@@ -139,7 +139,7 @@ void pocisk::wyznacz_obecny_tile() {
 //        }
 //    }
 
-    for(size_t i = lista_potencjalnie_przebytych_tileow.size()-1 ; i > 0  ; i--) {
+    for(int i = lista_potencjalnie_przebytych_tileow.size()-1 ; i >= 0  ; i--) {
         //debug("i: " , (int) i);
         if( czy_pocisk_przekroczyl_srodek_tile(lista_potencjalnie_przebytych_tileow[i]) ) {
             obecny_tile = lista_potencjalnie_przebytych_tileow[i];
@@ -195,13 +195,13 @@ void pocisk::zarzadzaj_pociskami() {
 //            }
 //        }
 
-        // TODO punkt 2 czyli polecenie po wszystkich enemy i porownanie ktory jest na tile na ktorym aktualnie jest ten pocisk (albo na odwrot) i wtedy kasacja obu
+        // DONE punkt 2 czyli polecenie po wszystkich enemy i porownanie ktory jest na tile na ktorym aktualnie jest ten pocisk (albo na odwrot) i wtedy kasacja obu
         bool czy_trafiono = enemy::zniszcz_enemy_na_tile_od_pocisk(it->operator*().obecny_tile);
         if(czy_trafiono) {
             do_skasowania.emplace_back(it);
         }
         // punkt 3
-        if(it->operator*().czy_przekroczyl_ostatni_tile() ) {
+        else if(it->operator*().czy_przekroczyl_ostatni_tile() ) {
             do_skasowania.emplace_back(it);
             continue;
         }

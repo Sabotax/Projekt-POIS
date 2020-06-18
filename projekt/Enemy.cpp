@@ -9,6 +9,7 @@ enemy::enemy(const sf::Texture& texture, std::shared_ptr<Tile> tile) {
     sprite->setTexture(texture);
     sprite->setPosition(polozenie_tile->polozenie.x, polozenie_tile->polozenie.y);
     czy_w_trakcie_animacji = false;
+    polozenie_tile->czy_zajete=true;
 }
 bool enemy::zniszcz_enemy_na_tile_od_pocisk(std::shared_ptr<Tile> tile_pocisku) {
     std::vector<std::vector<std::shared_ptr<enemy>>::iterator> do_skasowania;
@@ -18,9 +19,16 @@ bool enemy::zniszcz_enemy_na_tile_od_pocisk(std::shared_ptr<Tile> tile_pocisku) 
             do_skasowania.emplace_back(it);
             re = true;
         }
+        // czasami robot moze zmienic tile akurat jak pocisk bedzie miedzy tile'ami, przez co robot jakby robi unik
+        // nazwijmy to "feature" a nie bugiem
     }
     for(auto& x : do_skasowania) {
         //debug("kasuje wroga");
+        x->operator*().polozenie_tile->czy_zajete=false;
+        if(x->operator*().planowany_tile != nullptr) {
+            if(x->operator*().planowany_tile != Hero::hero1->polozenie_tile ) x->operator*().planowany_tile->czy_zajete=false;
+        }
+
         tab_enemies.erase(x);
     }
     return re;
@@ -77,75 +85,93 @@ void enemy::dzialaj() {
 
     if(gdzie_chce_isc_liczby.y != 0 && gdzie_chce_isc_liczby.x != 0) {
         if(randomInt(0,1) == 0) {
-            debug("chce isc w ", gdzie_chce_isc_liczby.x == -1 ? "lewo1" : "prawo1");
+            //debug("chce isc w ", gdzie_chce_isc_liczby.x == -1 ? "lewo1" : "prawo1");
             gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+gdzie_chce_isc_liczby.y];
             opcjaX = true;
         }
         else {
-            debug("chce isc w ", gdzie_chce_isc_liczby.y == -1 ? "gora1" : "dol1");
+            //debug("chce isc w ", gdzie_chce_isc_liczby.y == -1 ? "gora1" : "dol1");
             gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y];
             opcjaY = true;
         }
     }
     else if(gdzie_chce_isc_liczby.y != 0) {
-        debug("chce isc w ", gdzie_chce_isc_liczby.y == -1 ? "gora2" : "dol2");
+        //debug("chce isc w ", gdzie_chce_isc_liczby.y == -1 ? "gora2" : "dol2");
         gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+gdzie_chce_isc_liczby.y];
         opcjaY = true;
     }
     else if(gdzie_chce_isc_liczby.x != 0) {
-        debug("chce isc w ", gdzie_chce_isc_liczby.x == -1 ? "lewo2" : "prawo2");
-        gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+gdzie_chce_isc_liczby.y];
+        //debug("chce isc w ", gdzie_chce_isc_liczby.x == -1 ? "lewo2" : "prawo2");
+        gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y];
         opcjaX = true;
     }
     else {
         //stoi na bohaterze
-        std::cout << "nie powinienem tu dotrzec nigdy " << gdzie_chce_isc_liczby.x << "\t" << gdzie_chce_isc_liczby.y << std::endl;
+        //std::cout << "nie powinienem tu dotrzec nigdy " << gdzie_chce_isc_liczby.x << "\t" << gdzie_chce_isc_liczby.y << std::endl;
+        //debug("bohater we mnie wskoczyl");
+        std::cout<<"Miałeś zbyt bliskie spotkanie z robotem = instant death\nPrzegrales" << std::endl;
+        Tile::window->close();
+        // powinno się skasowac robota bo pewnie i tak będzie crash
     }
 
-    // TODO niewiadomo czy dobrze to jest
-    if(!gdzie_chce_isc_tile->czy_zajete && opcjaX) {
+    debug("czy zajente 1",gdzie_chce_isc_tile->czy_zajete);
+    if(gdzie_chce_isc_tile->czy_zajete && opcjaY) {
         if(gdzie_chce_isc_liczby.x != 0) {
             gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y];
             opcjaX = true;
+            opcjaY = false;
+            //debug("won zajente Y");
         }
     }
-    else if(!gdzie_chce_isc_tile->czy_zajete && opcjaY) {
+    else if(gdzie_chce_isc_tile->czy_zajete && opcjaX) {
         if(gdzie_chce_isc_liczby.y != 0) {
-            gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y];
+            gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+gdzie_chce_isc_liczby.y];
             opcjaY = true;
+            opcjaX = false;
+            //debug("won zajente X");
         }
     }
     // oba .x i .y nigdy nie mogą być 0, więc zawsze gdzie chce isc zajdzie
 
     if(!gdzie_chce_isc_tile->czy_zajete && opcjaY && opcjaX) {
         // nie idz nigdzie
+        debug("nigdzie nie ide");
+        polozenie_tile->czy_zajete = true;
     }
     else if(gdzie_chce_isc_tile == Hero::hero1->polozenie_tile) {
         debug("robot bije bohatera");
     }
-    else {
-        //debug("Opcja X:" , opcjaX );
-        //debug("Opcja Y:" , opcjaY );
+    else if(!gdzie_chce_isc_tile->czy_zajete){
+        debug("Opcja X:" , opcjaX );
+        debug("Opcja Y:" , opcjaY );
+        //debug("czy zajente 1",gdzie_chce_isc_tile->czy_zajete);
+        gdzie_chce_isc_tile->czy_zajete=true;
+        planowany_tile = gdzie_chce_isc_tile;
         if(opcjaX) {
             if(gdzie_chce_isc_liczby.x == -1) {
-                debug("idem w left");
+                //debug("idem w left");
                 start_move("left");
             }
             if(gdzie_chce_isc_liczby.x == 1) {
-                debug("idem w right");
+                //debug("idem w right");
                 start_move("right");
             }
         }
         if(opcjaY) {
             if(gdzie_chce_isc_liczby.y == -1) {
-                debug("idem w up");
+                //debug("idem w up");
                 start_move("up");
             }
             if(gdzie_chce_isc_liczby.y == 1) {
-                debug("idem w down");
+                //debug("idem w down");
                 start_move("down");
             }
         }
+    }
+    else {
+        polozenie_tile->czy_zajete = true;
+        debug("co do ch");
+        std::cout<< "X: " << gdzie_chce_isc_tile->polozenie_w_vector.x << "\tY: " << gdzie_chce_isc_tile->polozenie_w_vector.y << " chce isc" << std::endl;
     }
 }
 void enemy::spawn_enemies() {

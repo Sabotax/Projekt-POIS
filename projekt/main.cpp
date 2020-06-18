@@ -6,6 +6,7 @@
 // TODO odrkyc unexptected blad ze na poczatku gry jak sie zrobi np dwa-trzy razy w prawo to nastepnie w lewo tez robi w prawo
 // TODO zrobić zeby character mialo pole planowany tile, i zeby dzialaj/move robotów raczej sprawdzało je niż obecny tile, a może oba
 // TODO sprawdzic czy sprawdzanie zalezy od tile::zajete, czy sprawdza każde character::polozenie_tile == planowany_tile
+// TODO jak strzela do tile obok to nie zalicza i nie zabija robota na tile obok
 int main()
 {
     void start_dumb_cpp_static_variables();
@@ -36,7 +37,7 @@ int main()
     //sprites.emplace("hero1",Hero::InitiateHero(tekstury["hero1"],window->getSize()));
     //Tile::tiles_tab = Tile::GenerateTilesVector(tekstury["grass"],window->getSize());
     Tile::GenerateTilesVector(tekstury["red"], tekstury["blue"],window->getSize());
-    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[10][1] );
+    std::shared_ptr< Hero > Hero1 = std::make_shared< Hero >(tekstury["hero1"], Tile::tiles_tab[Tile::ilosc_x/2][Tile::ilosc_y/2] );
     Hero::hero1 = Hero1;
     //std::cout << Hero1->polozenie_tile->polozenie.x << "\t" << Hero1->polozenie_tile->polozenie.y << std::endl;
     //std::vector< std::vector < std::unique_ptr<sf::Sprite> > > tiles = GenerateTilesVector(tekstury["grass"],window->getSize());
@@ -170,6 +171,7 @@ int main()
         baner_odliczanie::ob->animate(elapsed_S);
         for(auto& x: pocisk::pociski) x->animuj(elapsed_S);
         pocisk::zarzadzaj_pociskami();
+
         // dir dać do startmove i moze pole w charcter opisujace dir
 
         window->draw(*sprites["wall"]);
@@ -191,6 +193,11 @@ int main()
 
         for(auto& x : pocisk::pociski)  window->draw(*x->sprite);
 
+//        for(auto& x: Tile::tiles_tab) {
+//            for(auto& y : x) {
+//                if(y->czy_zajete) std::cout<< "X: " << y->polozenie_w_vector.x << "\tY: " << y->polozenie_w_vector.y << " jest zajete" << std::endl;
+//            }
+//        }
         clock.restart();
         // end the current frame
         window->display();

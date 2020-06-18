@@ -21,5 +21,6 @@ public:
     Character();
     static void initialize_statics();
     bool czy_ruszyl_w_tej_turze = false;
+    std::shared_ptr<Tile> planowany_tile;
 };
 #endif // CHARACTER_H

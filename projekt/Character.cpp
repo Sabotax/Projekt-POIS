@@ -20,10 +20,12 @@ void Character::move() {
         if(direction == "up") {
             if(!(polozenie_tile->polozenie_w_vector.y > 0)) {
                 //nie_wyjdzie_poza = false;
-                polozenie_tile->czy_zajete = false;
+                //polozenie_tile->czy_zajete = false;
                 return;
             }
             else {
+//                planowany_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y-1];
+//                planowany_tile->czy_zajete = true;
                 if(frame_counter <= Character::frame_counter_max/2) {
                     sprite->move(0.25,-Character::animation_speed);
                 }
@@ -37,10 +39,12 @@ void Character::move() {
         else if(direction == "down"  ) {
             if(!(polozenie_tile->polozenie_w_vector.y < Tile::ilosc_y-1)) {
                 //nie_wyjdzie_poza = false;
-                polozenie_tile->czy_zajete = false;
+                //polozenie_tile->czy_zajete = false;
                 return;
             }
             else {
+                //                planowany_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+1];
+                //                planowany_tile->czy_zajete = true;
                 if(frame_counter <= Character::frame_counter_max/2) {
                     sprite->move(0.25,Character::animation_speed);
                 }
@@ -53,10 +57,12 @@ void Character::move() {
         else if(direction == "left"  ) {
             if(!(polozenie_tile->polozenie_w_vector.x > 0)) {
                 //nie_wyjdzie_poza = false;
-                polozenie_tile->czy_zajete = false;
+                //polozenie_tile->czy_zajete = false;
                 return;
             }
             else {
+//                planowany_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x-1][polozenie_tile->polozenie_w_vector.y];
+//                planowany_tile->czy_zajete = true;
                 if(frame_counter <= Character::frame_counter_max/2.0) {
                     sprite->move(-Character::animation_speed,-0.5);
                 }
@@ -70,10 +76,12 @@ void Character::move() {
         else if(direction == "right"  ) {
             if(!(polozenie_tile->polozenie_w_vector.x < Tile::ilosc_x-1)) {
                 //nie_wyjdzie_poza = false;
-                polozenie_tile->czy_zajete = false;
+                //polozenie_tile->czy_zajete = false;
                 return;
             }
             else {
+//                planowany_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y];
+//                planowany_tile->czy_zajete = true;
                 if(frame_counter <= Character::frame_counter_max/2) {
                     sprite->move(Character::animation_speed,-0.5);
                 }
@@ -104,7 +112,7 @@ void Character::move() {
 
         //sprite->setPosition(przewidywane_polozenie_na_koniec_animacji.x,przewidywane_polozenie_na_koniec_animacji.y);
 
-
+        polozenie_tile->czy_zajete =false;
         if(direction == "up") {
             polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y-1];
         }
@@ -118,90 +126,30 @@ void Character::move() {
             polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y];
         }
 
-        polozenie_tile->czy_zajete = true;
-        sprite->setPosition(polozenie_tile->polozenie.x,polozenie_tile->polozenie.y);
-    }
-}
-void Character::move(double elapsed) {
-    //double animation_speed = 3.27; //animation ? chyba speed
-    //nice teraz wzorem to zrobić by move skakało o ileś pixeli w połączeniu z elapsed
-    if(czy_w_trakcie_animacji) {
-        if(direction == "up") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(0.25*elapsed,-Character::animation_speed*elapsed);
-            }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(0.25*elapsed,-Character::animation_speed*elapsed);
-            }
-        }
-        else if(direction == "down") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(0.25*elapsed,Character::animation_speed*elapsed);
-            }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(0.25*elapsed,Character::animation_speed*elapsed);
-            }
-        }
-        else if(direction == "left") {
-            if(frame_counter <= Character::frame_counter_max/2.0) {
-                sprite->move(-Character::animation_speed*elapsed,-0.5*elapsed);
-                // zliczanie += iles pixeli dopoki 61 nie pyknie, tak samo zarzadzenie "skokiem do góry i w dół"
-            }
-            else if (frame_counter >= Character::frame_counter_max/2.0) {
-                sprite->move(-Character::animation_speed*elapsed,0.5*elapsed);
-            }
-
-        }
-        else if(direction == "right") {
-            if(frame_counter <= Character::frame_counter_max/2) {
-                sprite->move(Character::animation_speed*elapsed,-0.5*elapsed);
-            }
-            else if (frame_counter >= Character::frame_counter_max/2) {
-                sprite->move(Character::animation_speed*elapsed,0.5*elapsed);
-            }
-        }
-
-
-        frame_counter += Character::animation_speed*elapsed;
-        //debug("check fps counter", frame_counter);
-    }
-
-
-    //moment_animacji += elapsed;
-
-//    if(moment_animacji >= Character::czas_animacji) {
-//        czy_w_trakcie_animacji = false;
-//        moment_animacji = 0;
-//    }
-    // ustawic czy .x w poziom i .y w pion
-    if(frame_counter >= Character::frame_counter_max) {
-        //debug("wchodze tu");
-        czy_w_trakcie_animacji = false;
-        frame_counter = 0;
-
-        //sprite->setPosition(przewidywane_polozenie_na_koniec_animacji.x,przewidywane_polozenie_na_koniec_animacji.y);
-
-
-        if(direction == "up") {
-            polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y-1];
-        }
-        else if(direction == "down") {
-            polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+1];
-        }
-        else if(direction == "left") {
-            polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x-1][polozenie_tile->polozenie_w_vector.y];
-        }
-        else if(direction == "right") {
-            polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y];
-        }
-
+        //polozenie_tile->czy_zajete = true;
         sprite->setPosition(polozenie_tile->polozenie.x,polozenie_tile->polozenie.y);
     }
 }
 void Character::start_move(std::string direction) {
     //debug("move direction = ", direction);
-    czy_w_trakcie_animacji = true;
+
     if(!czy_ruszyl_w_tej_turze) {
+        czy_w_trakcie_animacji = true;
+
+        if(polozenie_tile != planowany_tile) polozenie_tile->czy_zajete = false;
+//        if(direction == "up" && !(polozenie_tile->polozenie_w_vector.y > 0)) {
+//            Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y-1]->czy_zajete = true;
+//        }
+//        else if(direction == "down" && !(polozenie_tile->polozenie_w_vector.y < Tile::ilosc_y-1)) {
+//            Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y+1]->czy_zajete = true;
+//        }
+//        else if(direction == "left" && !(polozenie_tile->polozenie_w_vector.x > 0)) {
+//            Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x-1][polozenie_tile->polozenie_w_vector.y]->czy_zajete = true;
+//        }
+//        else if(direction == "right" && !(polozenie_tile->polozenie_w_vector.x < Tile::ilosc_x-1)) {
+//            Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y]->czy_zajete = true;
+//        }
+
         if( !Timer::czy_wpadlo_w_nawiasy_bitu(Music::obecna_muzyka,Timer::zliczanie)) {
             debug("nie w rytm");
             // TODO czy to trzeba robic hero only, skoro roboty zawsze beda wpadac w timer?

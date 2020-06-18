@@ -105,7 +105,6 @@ Tile::Tile(int x, int y, const sf::Texture& texture,int x1, int y1)  {
     sprite->setTexture(texture);
     polozenie_w_vector.x = x1;
     polozenie_w_vector.y = y1;
-    czy_zajete = false;
 }
 void Tile::initialize_statics() {
     tile_px_width = 50;
