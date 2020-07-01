@@ -33,6 +33,7 @@ public:
     static int wysokosc_okna;
     bool czy_zajete = false;
     static std::shared_ptr< sf::RenderWindow > window;
+    bool czy_koordy_wchodza_w_tile(sf::Vector2i coords);
 };
 
 #endif // TILE_H
