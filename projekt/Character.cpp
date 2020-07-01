@@ -112,7 +112,7 @@ void Character::move() {
 
         //sprite->setPosition(przewidywane_polozenie_na_koniec_animacji.x,przewidywane_polozenie_na_koniec_animacji.y);
 
-        polozenie_tile->czy_zajete = false;
+        polozenie_tile->czy_zajete =false;
         if(direction == "up") {
             polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x][polozenie_tile->polozenie_w_vector.y-1];
         }
@@ -126,7 +126,7 @@ void Character::move() {
             polozenie_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+1][polozenie_tile->polozenie_w_vector.y];
         }
 
-        polozenie_tile->czy_zajete = true;
+        //polozenie_tile->czy_zajete = true;
         sprite->setPosition(polozenie_tile->polozenie.x,polozenie_tile->polozenie.y);
     }
 }

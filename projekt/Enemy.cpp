@@ -26,10 +26,7 @@ bool enemy::zniszcz_enemy_na_tile_od_pocisk(std::shared_ptr<Tile> tile_pocisku) 
         //debug("kasuje wroga");
         x->operator*().polozenie_tile->czy_zajete=false;
         if(x->operator*().planowany_tile != nullptr) {
-            if(x->operator*().planowany_tile != Hero::hero1->polozenie_tile ) {
-                x->operator*().planowany_tile->czy_zajete=false;
-                x->operator*().polozenie_tile->czy_zajete=false;
-            }
+            if(x->operator*().planowany_tile != Hero::hero1->polozenie_tile ) x->operator*().planowany_tile->czy_zajete=false;
         }
 
         tab_enemies.erase(x);
@@ -63,7 +60,7 @@ sf::Vector2i enemy::pozycja_wzgledem_bohatera(std::shared_ptr<Hero> hero) {
 void enemy::dzialaj() {
     // czy jest zajete, jesli tak to czy zajete przez bohatera, jesli tak to dmg, jesli nie to move
     // raczej nie da rady "chciec isc poza ramy, bo bohater poza ramy nie wyjdzie
-    //debug("przebieg");
+    debug("przebieg");
     sf::Vector2i gdzie_chce_isc_liczby = pozycja_wzgledem_bohatera(Hero::hero1);
 
     // zle bo nie mozna na skos
@@ -85,8 +82,6 @@ void enemy::dzialaj() {
 //            opcjaY = true;
 //        }
 //    }
-
-    //std::cout << gdzie_chce_isc_liczby.x << "\t" << gdzie_chce_isc_liczby.y << std::endl;
 
     if(gdzie_chce_isc_liczby.y != 0 && gdzie_chce_isc_liczby.x != 0) {
         if(randomInt(0,1) == 0) {
@@ -119,7 +114,7 @@ void enemy::dzialaj() {
         // powinno się skasowac robota bo pewnie i tak będzie crash
     }
 
-    //debug("czy zajente 1",gdzie_chce_isc_tile->czy_zajete);
+    debug("czy zajente 1",gdzie_chce_isc_tile->czy_zajete);
     if(gdzie_chce_isc_tile->czy_zajete && opcjaY) {
         if(gdzie_chce_isc_liczby.x != 0) {
             gdzie_chce_isc_tile = Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y];
@@ -140,25 +135,17 @@ void enemy::dzialaj() {
 
     if(!gdzie_chce_isc_tile->czy_zajete && opcjaY && opcjaX) {
         // nie idz nigdzie
-        //debug("nigdzie nie ide");
-        // nie powinno musiec ustawiac na true bo juz jest
-        //polozenie_tile->czy_zajete = true;
+        debug("nigdzie nie ide");
+        polozenie_tile->czy_zajete = true;
     }
     else if(gdzie_chce_isc_tile == Hero::hero1->polozenie_tile) {
-        //debug("robot bije bohatera");
+        debug("robot bije bohatera");
     }
     else if(!gdzie_chce_isc_tile->czy_zajete){
-//        if( Tile::tiles_tab[polozenie_tile->polozenie_w_vector.x+gdzie_chce_isc_liczby.x][polozenie_tile->polozenie_w_vector.y+gdzie_chce_isc_liczby.y]->czy_zajete ) {
-//            //debug("wracam se, czyli tu cos sie rozpierdala bo powinno byc zawarte w warunku u gory");
-//            return;
-//        }
-
-        //debug("Opcja X:" , opcjaX );
-        //debug("Opcja Y:" , opcjaY );
+        debug("Opcja X:" , opcjaX );
+        debug("Opcja Y:" , opcjaY );
         //debug("czy zajente 1",gdzie_chce_isc_tile->czy_zajete);
-        //std::cout << gdzie_chce_isc_tile->polozenie_w_vector.x << "\t" << gdzie_chce_isc_tile->polozenie_w_vector.y << std::endl;
         gdzie_chce_isc_tile->czy_zajete=true;
-        polozenie_tile->czy_zajete=false;
         planowany_tile = gdzie_chce_isc_tile;
         if(opcjaX) {
             if(gdzie_chce_isc_liczby.x == -1) {
@@ -182,9 +169,9 @@ void enemy::dzialaj() {
         }
     }
     else {
-        //polozenie_tile->czy_zajete = true;
-        //debug("co do ch");
-        //std::cout<< "X: " << gdzie_chce_isc_tile->polozenie_w_vector.x << "\tY: " << gdzie_chce_isc_tile->polozenie_w_vector.y << " chce isc" << std::endl;
+        polozenie_tile->czy_zajete = true;
+        debug("co do ch");
+        std::cout<< "X: " << gdzie_chce_isc_tile->polozenie_w_vector.x << "\tY: " << gdzie_chce_isc_tile->polozenie_w_vector.y << " chce isc" << std::endl;
     }
 }
 void enemy::spawn_enemies() {

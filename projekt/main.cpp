@@ -82,27 +82,8 @@ int main()
         sf::Event event;
         while (window->pollEvent(event)) {
             // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed)
                 window->close();
-            }
-
-            if (event.type == sf::Event::MouseButtonPressed) {
-
-                // lpm
-                if(event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2i mouse_pos = sf::Mouse::getPosition(*window);
-                    //std::cout << "Mouse clicked: " << mouse_pos.x << ", " << mouse_pos.y << std::endl;
-
-                    for(auto& x : Tile::tiles_tab) for(auto& y: x) {
-                        if( y->czy_koordy_wchodza_w_tile(mouse_pos) ) {
-                            std::cout << "X: " << mouse_pos.x << "\tY: " << mouse_pos.y << "\t" << (y->czy_zajete ? "zajete" : "wolne") << std::endl;
-                        }
-                    }
-
-                }
-
-
-            }
 
 //            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 //                Hero1->Character::start_move("up");

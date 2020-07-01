@@ -144,7 +144,3 @@ void Tile::ustaw_statyczne_tex( sf::Texture tex1, sf::Texture tex2) {
     Tile::tex1 = tex1;
     Tile::tex2 = tex2;
 }
-bool Tile::czy_koordy_wchodza_w_tile(sf::Vector2i coords) {
-    // na potrzeby debugu co ma zajete=false a co nie
-    return (coords.x >= polozenie.x && coords.x <= polozenie.x + Tile::tile_px_width && coords.y >= polozenie.y && coords.y <= polozenie.y + Tile::tile_px_width);
-}
