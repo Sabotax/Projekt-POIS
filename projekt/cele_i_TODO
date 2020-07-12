@@ -1,17 +1,7 @@
-1. zwiększyć mapę przez zwiększenie rozdzielczości + dorobić banner u góry z (na przyszłość) życie, fala, broń, ammo
-dodatkowo niepasujące brzegi zamienić tak by były pasujące i zrobić "ściany"
-
-2. TIMER i połączenie z eventami (lub ich brakiem
-(można wrzucić coś tymczasowo migającego w banner oznaczającego zakresy właściwego czasu (rytmu) )
-
-
-rozdzielczosć: 1270 na pole i przerwy, 36 /2 na brzegi, 60 na banner
-768: 730 na pole i przerwy ( jedna przerwa + [ (50+10) * ilosc + 10) , 38/2 na brzegi
-
-
-13.06:
-może pozszywać żeby projekt nie wyglądał jak gówno, chociaż to już chyba niemożliwe
-zająć się żeby trzeba było się poruszyć w dobrym czasie
-
-
-przebudowa tekstury zeby byly w shared_ptr?
+bugi:
+1. nachodzą na siebie
+2. W którymś momencie być może spowodowane przez zgon nie ustawiają czy_zajete planowanego lub obecnego na false, przez co blokują drogę następcom
+3. nie wykrywają że jest zajęte mimo, że wszystko mówi, że jest i na to wchodzą
+4. być może źle ustawiają/kolejkują że niby powinno być oznaczone na zajęte a nie jest itp
+1,3,4 połączone błędy, nie mogę ich naprawić
+2 też mimo prób wszędzie

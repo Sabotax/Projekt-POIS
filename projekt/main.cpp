@@ -1,12 +1,5 @@
 #include "Header.h"
-// OMEGATODO pathfinding i skakanie do bohatera co ture i atakowanie bohatera jesli jest obok
-// DONE wymaganie żeby w okienku się ruszyć
-// DONE lmit strzalu raz na ture (odrobine inna tura niz ta dotyczaca ruchu)
-// MOZE TODO zielone pola oznaczajace mozliwe nawiasy, aczkolwiek niezbyt potrzebne
-// TODO odrkyc unexptected blad ze na poczatku gry jak sie zrobi np dwa-trzy razy w prawo to nastepnie w lewo tez robi w prawo
-// TODO zrobić zeby character mialo pole planowany tile, i zeby dzialaj/move robotów raczej sprawdzało je niż obecny tile, a może oba
-// TODO sprawdzic czy sprawdzanie zalezy od tile::zajete, czy sprawdza każde character::polozenie_tile == planowany_tile
-// TODO jak strzela do tile obok to nie zalicza i nie zabija robota na tile obok
+
 int main()
 {
     void start_dumb_cpp_static_variables();

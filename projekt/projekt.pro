@@ -4,7 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        Baner.cpp \
         Boot.cpp \
         Character.cpp \
         Helper.cpp \
@@ -29,7 +28,6 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
-    Baner.h \
     Character.h \
     Header.h \
     Hero.h \

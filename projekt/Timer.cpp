@@ -80,7 +80,7 @@ void Timer::zarzadzaj_czasem(double elapsed) {
             if(!oberwal_juz) {
                 //debug("obrywam");
                 // TODO tymczasowo koment ponizej
-                //serca::strac_zycie();
+                serca::strac_zycie();
                 oberwal_juz = true;
             }
 

@@ -27,7 +27,6 @@ int randomInt(int min, int max);
 #include "Tile.h"
 #include "Character.h"
 #include "Hero.h"
-#include "Baner.h"
 #include "Music.h"
 #include "Timer.h"
 #include "baner_odliczanie.h"
